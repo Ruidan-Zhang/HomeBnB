@@ -3,7 +3,7 @@
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
-}
+} //this block of code is required in every seeder file.
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -41,7 +41,7 @@ module.exports = {
     }, options);
   },
   down: async (queryInterface, Sequelize) => {
-    options.tableName = "Users";
+    options.tableName = "Users"; //every queryInterface function needs to pass in this option as the second argument.
     return queryInterface.dropTable(options);
   }
 };
