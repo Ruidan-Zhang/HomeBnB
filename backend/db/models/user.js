@@ -11,9 +11,6 @@ module.exports = (sequelize, DataTypes) => {
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
-    static associate(models) {
-      // define association here
-    }
     static getCurrentUserById(id) {
       return User.scope("currentUser").findByPk(id);
     }
@@ -41,6 +38,24 @@ module.exports = (sequelize, DataTypes) => {
         lastName
       });
       return await User.scope('currentUser').findByPk(user.id);
+    }
+    static associate(models) {
+      // define association here
+      User.hasMany(models.Spot, {
+        foreignKey: 'ownerId'
+      })
+
+      User.belongsToMany(models.Spot, {
+        through: models.Booking,
+        foreignKey: 'userId',
+        otherKey: 'spotId'
+      })
+
+      User.belongsToMany(models.Spot, {
+        through: models.Review,
+        foreignKey: 'userId',
+        otherKey: 'spotId'
+      })
     }
   };
 
