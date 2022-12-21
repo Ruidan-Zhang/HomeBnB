@@ -16,7 +16,7 @@ module.exports = {
         state: "state1",
         country: "country1",
         lat: 11.1,
-        lng: 22.2,
+        lng: -22.2,
         name: "first spot name",
         description: "first spot description",
         price: 10
@@ -28,7 +28,7 @@ module.exports = {
         state: "state2",
         country: "country2",
         lat: 33.3,
-        lng: 44.4,
+        lng: -44.4,
         name: "second spot name",
         description: "second spot description",
         price: 20
@@ -40,7 +40,7 @@ module.exports = {
         state: "state3",
         country: "country3",
         lat: 55.5,
-        lng: 66.6,
+        lng: -66.6,
         name: "third spot name",
         description: "third spot description",
         price: 30
