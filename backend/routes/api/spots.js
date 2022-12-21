@@ -34,4 +34,6 @@ router.get('/', async (req, res) => {
     });
 })
 
+//Get all Spots owned by the Current User
+
 module.exports = router;
