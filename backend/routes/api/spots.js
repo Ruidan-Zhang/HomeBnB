@@ -2,7 +2,7 @@
 const express = require('express');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Spot, Review, SpotImage, User, sequelize } = require('../../db/models');
+const { Spot, Review, Booking, SpotImage, User, sequelize } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -415,6 +415,56 @@ router.post('/:spotId/reviews', validateReview, requireAuth, async (req, res, ne
         res.statusCode = 201;
         return res.json(newReview);
     }
-})
+});
+
+//Get all Bookings for a Spot based on the Spot's id
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    const { spotId } = req.params;
+    const foundSpot = await Spot.findByPk(spotId);
+
+    if (!foundSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        next(err)
+    } else if (req.user.id !== foundSpot.ownerId) {
+        const foundBookings = await Booking.findAll({
+            where: {
+                spotId: spotId
+            },
+            attributes: ['spotId', 'startDate', 'endDate']
+        });
+
+        const bookingArr = [];
+
+        for (let foundBooking of foundBookings) {
+            bookingArr.push(foundBooking);
+        }
+
+        return res.json({
+            "Bookings": bookingArr
+        })
+    } else if (req.user.id === foundSpot.ownerId) {
+        const foundBookings = await Booking.findAll({
+            where: {
+                spotId: spotId
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName']
+                }
+            ]
+        });
+
+        const bookingArr = [];
+
+        for (let foundBooking of foundBookings) {
+            bookingArr.push(foundBooking)
+        }
+        return res.json({
+            "Bookings": bookingArr
+        })
+    }
+});
 
 module.exports = router;
