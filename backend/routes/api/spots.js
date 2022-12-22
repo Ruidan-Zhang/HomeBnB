@@ -70,7 +70,8 @@ router.get('/', async (req, res) => {
 
         let previewImages = await SpotImage.findAll({
             where: {
-                spotId: spot.id
+                spotId: spot.id,
+                preview: true
             },
             attributes: ['url']
         });
@@ -78,13 +79,7 @@ router.get('/', async (req, res) => {
         if (previewImages.length === 0) {
             spot.previewImage = 'No image available.'
         } else if (previewImages.length > 0) {
-            for (let previewImage of previewImages) {
-                if (previewImage.preview === true) {
-                    spot.previewImage = previewImage.url;
-                } else {
-                    spot.previewImage = 'No image available.'
-                }
-            }
+            spot.previewImage = previewImage[0].url;
         }
 
         spotsArr.push(spot);
@@ -127,7 +122,8 @@ router.get('/current', requireAuth, async (req, res) => {
 
         let previewImages = await SpotImage.findAll({
             where: {
-                spotId: spot.id
+                spotId: spot.id,
+                preview: true
             },
             attributes: ['url']
         });
@@ -135,13 +131,7 @@ router.get('/current', requireAuth, async (req, res) => {
         if (previewImages.length === 0) {
             spot.previewImage = 'No image available.'
         } else if (previewImages.length > 0) {
-            for (let previewImage of previewImages) {
-                if (previewImage.preview === true) {
-                    spot.previewImage = previewImage.url;
-                } else {
-                    spot.previewImage = 'No image available.'
-                }
-            }
+            spot.previewImage = previewImage[0].url;
         }
 
         spotsArr.push(spot);
