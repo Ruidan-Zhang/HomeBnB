@@ -497,12 +497,16 @@ router.post('/:spotId/bookings', validateBooking, requireAuth, async (req, res, 
         next(err)
     }
 
-    const allBookings = await Booking.findAll();
+    const allBookings = await Booking.findAll({
+        where: {
+            spotId: foundSpot.id
+        }
+    });
 
     for (let eachBooking of allBookings) {
         eachBooking = eachBooking.toJSON();
 
-        if (startDate >= eachBooking.startDate || endDate <= eachBooking.endDate) {
+        if (startDate >= eachBooking.startDate && endDate <= eachBooking.endDate) {
             res.status = 403;
             res.statusCode = 403;
             return res.json({
@@ -510,6 +514,28 @@ router.post('/:spotId/bookings', validateBooking, requireAuth, async (req, res, 
                 "statusCode": 403,
                 "errors": {
                   "startDate": "Start date conflicts with an existing booking",
+                  "endDate": "End date conflicts with an existing booking"
+                }
+            })
+        } else if (startDate >= eachBooking.startDate) {
+            console.log(startDate);
+            console.log(eachBooking.startDate)
+            res.status = 403;
+            res.statusCode = 403;
+            return res.json({
+                "message": "Sorry, this spot is already booked for the specified dates",
+                "statusCode": 403,
+                "errors": {
+                  "startDate": "Start date conflicts with an existing booking"
+                }
+            })
+        } else if (endDate <= eachBooking.endDate) {
+            res.status = 403;
+            res.statusCode = 403;
+            return res.json({
+                "message": "Sorry, this spot is already booked for the specified dates",
+                "statusCode": 403,
+                "errors": {
                   "endDate": "End date conflicts with an existing booking"
                 }
             })
