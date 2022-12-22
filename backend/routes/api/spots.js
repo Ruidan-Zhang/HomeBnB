@@ -320,6 +320,57 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
             "statusCode": 200
         })
     }
+});
+
+//Get all Reviews by a Spot's id
+router.get('/:spotId/reviews', async (req, res, next) => {
+    const { spotId } = req.params;
+    const foundSpot = await Review.findByPk(spotId);
+
+    if (!foundSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        next(err)
+    } else {
+        const reviewArr = [];
+        const foundSpotReviews = await Review.findAll({
+            where: {
+                spotId: foundSpot.id
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName']
+                }
+            ]
+        });
+
+        for (let foundSpotReview of foundSpotReviews) {
+            foundSpotReview = foundSpotReview.toJSON();
+
+
+        let previewImages = await SpotImage.findAll({
+            where: {
+                spotId: foundSpotReview.spotId,
+                preview: true
+            },
+            attributes: ['id', 'url']
+        });
+
+        if (previewImages.length === 0) {
+            foundSpotReview.previewImages = 'No image available.'
+        } else if (previewImages.length > 0) {
+            foundSpotReview.previewImages = previewImages;
+        }
+
+            reviewArr.push(foundSpotReview);
+
+        }
+
+        return res.json({
+            "Reviews": reviewArr
+        })
+    }
 })
 
 module.exports = router;
