@@ -32,6 +32,7 @@ const validateSpot = [
       .withMessage('Longitude is not valid'),
     check('name')
       .exists({ checkFalsy: true })
+      .isLength({ max: 49 })
       .withMessage('Name must be less than 50 characters'),
     check('description')
       .exists({ checkFalsy: true })
@@ -60,17 +61,31 @@ router.get('/', async (req, res) => {
             ],
             raw: true
         });
-        avgRating = avgRating[0].avgRating;
-        spot.avgRating = avgRating;
+        if(isNaN(avgRating)) {
+            spot.avgRating = 'No ratings yet.'
+        } else {
+            avgRating = avgRating[0].avgRating;
+            spot.avgRating = avgRating;
+        }
 
-        let previewImage = await SpotImage.findAll({
+        let previewImages = await SpotImage.findAll({
             where: {
                 spotId: spot.id
             },
             attributes: ['url']
         });
-        previewImage = previewImage[0].url;
-        spot.previewImage = previewImage;
+
+        if (previewImages.length === 0) {
+            spot.previewImage = 'No image available.'
+        } else if (previewImages.length > 0) {
+            for (let previewImage of previewImages) {
+                if (previewImage.preview === true) {
+                    spot.previewImage = previewImage.url;
+                } else {
+                    spot.previewImage = 'No image available.'
+                }
+            }
+        }
 
         spotsArr.push(spot);
     }
@@ -103,17 +118,31 @@ router.get('/current', requireAuth, async (req, res) => {
             ],
             raw: true
         });
-        avgRating = avgRating[0].avgRating;
-        spot.avgRating = avgRating;
+        if(isNaN(avgRating)) {
+            spot.avgRating = 'No ratings yet.'
+        } else {
+            avgRating = avgRating[0].avgRating;
+            spot.avgRating = avgRating;
+        }
 
-        let previewImage = await SpotImage.findAll({
+        let previewImages = await SpotImage.findAll({
             where: {
                 spotId: spot.id
             },
             attributes: ['url']
         });
-        previewImage = previewImage[0].url;
-        spot.previewImage = previewImage;
+
+        if (previewImages.length === 0) {
+            spot.previewImage = 'No image available.'
+        } else if (previewImages.length > 0) {
+            for (let previewImage of previewImages) {
+                if (previewImage.preview === true) {
+                    spot.previewImage = previewImage.url;
+                } else {
+                    spot.previewImage = 'No image available.'
+                }
+            }
+        }
 
         spotsArr.push(spot);
     }
@@ -164,8 +193,12 @@ router.get('/:spotId', async (req, res, next) => {
             ],
             raw: true
         });
-        avgRating = avgRating[0].avgRating;
-        spot.avgStarRating = avgRating;
+        if(isNaN(avgRating)) {
+            spot.avgStarRating = 'No ratings yet.'
+        } else {
+            avgRating = avgRating[0].avgRating;
+            spot.avgStarRating = avgRating;
+        }
 
         let owner = await User.findAll({
             where: {
@@ -233,5 +266,43 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         return res.json(resultImage);
     }
 });
+
+//Edit a Spot
+router.put('/:spotId', validateSpot, requireAuth, async (req, res) => {
+    const spotId = req.params.spotId;
+    const foundSpot = await Spot.findByPk(spotId);
+
+    if (!foundSpot) {
+        res.status = 404;
+        res.statusCode = 404;
+        return res.json({
+            "message": "Spot couldn't be found",
+            "statusCode": res.status
+        })
+    } else if (req.user.id !== foundSpot.ownerId) {
+        res.status = 403;
+        res.statusCode = 403;
+        return res.json({
+            "message": "Forbidden",
+            "statusCode": res.status
+        })
+    } else {
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        foundSpot.update({
+            ownerId: req.user.id,
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price
+        });
+        return res.json(foundSpot);
+    }
+});
+
 
 module.exports = router;
