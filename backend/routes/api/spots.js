@@ -53,6 +53,16 @@ const validateSpot = [
     handleValidationErrors
   ];
 
+  const validateBooking = [
+    check('startDate')
+      .exists({ checkFalsy: true })
+      .withMessage('StartDate is required'),
+    check('endDate')
+      .exists({ checkFalsy: true })
+      .withMessage('StartDate is required'),
+    handleValidationErrors
+  ];
+
 //Get all Spots
 router.get('/', async (req, res) => {
     const spots = await Spot.findAll({raw: true});
@@ -466,5 +476,56 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
         })
     }
 });
+
+//Create a Booking from a Spot based on the Spot's id
+router.post('/:spotId/bookings', validateBooking, requireAuth, async (req, res, next) => {
+    const { spotId } = req.params;
+    const foundSpot = await Spot.findByPk(spotId);
+    const { startDate, endDate } = req.body;
+
+    if (!foundSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        next(err)
+    } else if (endDate <= startDate) {
+        const err = new Error("endDate cannot be on or before startDate");
+        err.status = 400;
+        next(err)
+    } else if (req.user.id === foundSpot.ownerId) {
+        const err = new Error("Forbidden");
+        err.status = 403;
+        next(err)
+    }
+
+    const allBookings = await Booking.findAll();
+
+    for (let eachBooking of allBookings) {
+        eachBooking = eachBooking.toJSON();
+
+        if (startDate >= eachBooking.startDate || endDate <= eachBooking.endDate) {
+            res.status = 403;
+            res.statusCode = 403;
+            return res.json({
+                "message": "Sorry, this spot is already booked for the specified dates",
+                "statusCode": 403,
+                "errors": {
+                  "startDate": "Start date conflicts with an existing booking",
+                  "endDate": "End date conflicts with an existing booking"
+                }
+            })
+        }
+    }
+
+    const newBooking = await Booking.create({
+        spotId: spotId,
+        userId: req.user.id,
+        startDate,
+        endDate
+    })
+
+    res.statusCode = 201;
+    return res.json(newBooking);
+
+})
 
 module.exports = router;
