@@ -610,7 +610,7 @@ router.post('/:spotId/bookings', validateBooking, requireAuth, async (req, res, 
         err.status = 400;
         next(err)
     } else if (req.user.id === foundSpot.ownerId) {
-        const err = new Error("Forbidden");
+        const err = new Error("You can't book your own spot.");
         err.status = 403;
         next(err)
     }
@@ -624,7 +624,8 @@ router.post('/:spotId/bookings', validateBooking, requireAuth, async (req, res, 
     for (let eachBooking of allBookings) {
         eachBooking = eachBooking.toJSON();
 
-        if (startDate >= eachBooking.startDate && endDate <= eachBooking.endDate) {
+        if ((startDate >= eachBooking.startDate && endDate <= eachBooking.endDate) ||
+            (startDate < eachBooking.startDate && endDate > eachBooking.endDate)) {
             res.status = 403;
             res.statusCode = 403;
             return res.json({
@@ -635,7 +636,7 @@ router.post('/:spotId/bookings', validateBooking, requireAuth, async (req, res, 
                   "endDate": "End date conflicts with an existing booking"
                 }
             })
-        } else if (startDate >= eachBooking.startDate) {
+        } else if (startDate <= eachBooking.endDate && endDate > eachBooking.endDate) {
             console.log(startDate);
             console.log(eachBooking.startDate)
             res.status = 403;
@@ -647,7 +648,7 @@ router.post('/:spotId/bookings', validateBooking, requireAuth, async (req, res, 
                   "startDate": "Start date conflicts with an existing booking"
                 }
             })
-        } else if (endDate <= eachBooking.endDate) {
+        } else if (startDate < eachBooking.startDate && endDate >= eachBooking.startDate) {
             res.status = 403;
             res.statusCode = 403;
             return res.json({

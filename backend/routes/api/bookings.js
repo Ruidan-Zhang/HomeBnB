@@ -103,7 +103,8 @@ router.put('/:bookingId', validateBooking, requireAuth, async (req, res, next) =
     for (let eachBooking of allBookings) {
         eachBooking = eachBooking.toJSON();
 
-        if (startDate >= eachBooking.startDate && endDate <= eachBooking.endDate) {
+        if ((startDate >= eachBooking.startDate && endDate <= eachBooking.endDate) ||
+        (startDate < eachBooking.startDate && endDate > eachBooking.endDate)) {
             res.status = 403;
             res.statusCode = 403;
             return res.json({
@@ -114,7 +115,7 @@ router.put('/:bookingId', validateBooking, requireAuth, async (req, res, next) =
                   "endDate": "End date conflicts with an existing booking"
                 }
             })
-        } else if (startDate >= eachBooking.startDate) {
+        } else if (startDate <= eachBooking.endDate && endDate > eachBooking.endDate) {
             console.log(startDate);
             console.log(eachBooking.startDate)
             res.status = 403;
@@ -126,7 +127,7 @@ router.put('/:bookingId', validateBooking, requireAuth, async (req, res, next) =
                   "startDate": "Start date conflicts with an existing booking"
                 }
             })
-        } else if (endDate <= eachBooking.endDate) {
+        } else if (startDate < eachBooking.startDate && endDate >= eachBooking.startDate) {
             res.status = 403;
             res.statusCode = 403;
             return res.json({
