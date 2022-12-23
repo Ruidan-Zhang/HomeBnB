@@ -179,7 +179,7 @@ router.get('/', validateQuery, async (req, res) => {
 
     for (let spot of spots) {
         spot = spot.toJSON();
-        let avgRating = await Review.findAll({
+        let avgRatingArr = await Review.findAll({
             where: {
                 spotId: spot.id
             },
@@ -191,11 +191,13 @@ router.get('/', validateQuery, async (req, res) => {
             ],
             raw: true
         });
-        if(Number.isNaN(avgRating)) {
+
+        const avgRatingObj = avgRatingArr[0];
+
+        if(!avgRatingObj.avgRating) {
             spot.avgRating = 'No ratings yet.'
         } else {
-            avgRating = avgRating[0].avgRating;
-            spot.avgRating = avgRating;
+            spot.avgRating = avgRatingObj.avgRating;
         }
 
         let previewImages = await SpotImage.findAll({
@@ -233,7 +235,7 @@ router.get('/current', requireAuth, async (req, res) => {
     const spotsArr = [];
 
     for (let spot of currentUserSpots) {
-        let avgRating = await Review.findAll({
+        let avgRatingArr = await Review.findAll({
             where: {
                 spotId: spot.id
             },
@@ -245,11 +247,13 @@ router.get('/current', requireAuth, async (req, res) => {
             ],
             raw: true
         });
-        if(Number.isNaN(avgRating)) {
+
+        const avgRatingObj = avgRatingArr[0];
+
+        if(!avgRatingObj.avgRating) {
             spot.avgRating = 'No ratings yet.'
         } else {
-            avgRating = avgRating[0].avgRating;
-            spot.avgRating = avgRating;
+            spot.avgRating = avgRatingObj.avgRating;
         }
 
         let previewImages = await SpotImage.findAll({
@@ -281,7 +285,10 @@ router.get('/:spotId', async (req, res, next) => {
         include: [
             {
                 model: SpotImage,
-                attributes: ['id', 'url', 'preview']
+                attributes: ['id', 'url', 'preview'],
+                where: {
+                    preview: true
+                }
             }
         ]
     });
@@ -303,7 +310,7 @@ router.get('/:spotId', async (req, res, next) => {
         })
         spot.numReviews = numReviews;
 
-        let avgRating = await Review.findAll({
+        let avgRatingArr = await Review.findAll({
             where: {
                 spotId: spotId
             },
@@ -315,11 +322,13 @@ router.get('/:spotId', async (req, res, next) => {
             ],
             raw: true
         });
-        if(Number.isNaN(avgRating)) {
+
+        const avgRatingObj = avgRatingArr[0];
+
+        if(!avgRatingObj.avgRating) {
             spot.avgStarRating = 'No ratings yet.'
         } else {
-            avgRating = avgRating[0].avgRating;
-            spot.avgStarRating = avgRating;
+            spot.avgStarRating = avgRatingObj.avgRating;
         }
 
         let owner = await User.findAll({
