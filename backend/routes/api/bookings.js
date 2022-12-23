@@ -67,8 +67,6 @@ router.put('/:bookingId', validateBooking, requireAuth, async (req, res, next) =
     const bookingId = req.params.bookingId;
     const foundBooking = await Booking.findByPk(bookingId);
     const { startDate, endDate } = req.body;
-    const currentDate = new Date().getTime();
-    const endDateObj = new Date(endDate).getTime();
 
     if (!foundBooking) {
         const err = new Error("Booking couldn't be found");
@@ -88,10 +86,19 @@ router.put('/:bookingId', validateBooking, requireAuth, async (req, res, next) =
               "endDate": "endDate cannot come before startDate"
             }
         })
-    } else if (endDateObj <= currentDate) {
-        const err = new Error("Past bookings can't be modified");
-        err.status = 403;
-        next(err)
+    }
+
+    const oldStartDate = foundBooking.startDate;
+    const currentDate = new Date().getTime();
+    const startDateObj = new Date(oldStartDate).getTime();
+
+    if (startDateObj <= currentDate) {
+        res.status = 403;
+        res.statusCode = 403;
+        return res.json({
+            "message": "Past bookings can't be modified",
+            "statusCode": 403
+        })
     }
 
     const allBookings = await Booking.findAll({
@@ -163,7 +170,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
 
     const foundSpot = await Spot.findByPk(foundBooking.spotId)
 
-    if (startDate <= currentDate) {
+    if (startDateObj <= currentDate) {
         res.status = 403;
         res.statusCode = 403;
         return res.json({
