@@ -7,6 +7,8 @@ const { Spot, Review, Booking, SpotImage, User, sequelize } = require('../../db/
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
+const { Op } = require('sequelize');
+
 const router = express.Router();
 
 const validateSpot = [
@@ -65,10 +67,26 @@ const validateSpot = [
 
 //Get all Spots
 router.get('/', async (req, res) => {
-    const spots = await Spot.findAll({raw: true});
+    let { page, size, minLat, mixLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    const pagination = {};
+
+    page = +page;
+    size = +size;
+    if (!page) page = 1;
+    if(page > 10) page = 10;
+    if (!size || size > 20) size = 20;
+
+    if (page >=1 && size >=1) {
+        pagination.limit = size;
+        pagination.offset = size * (page - 1);
+    }
+
+    const spots = await Spot.findAll({...pagination});
     const spotsArr = [];
 
     for (let spot of spots) {
+        spot = spot.toJSON();
         let avgRating = await Review.findAll({
             where: {
                 spotId: spot.id
@@ -81,7 +99,7 @@ router.get('/', async (req, res) => {
             ],
             raw: true
         });
-        if(isNaN(avgRating)) {
+        if(Number.isNaN(avgRating)) {
             spot.avgRating = 'No ratings yet.'
         } else {
             avgRating = avgRating[0].avgRating;
@@ -106,7 +124,9 @@ router.get('/', async (req, res) => {
     }
 
     return res.json({
-        "Spots": spotsArr
+        "Spots": spotsArr,
+        page: page,
+        size: size
     })
 });
 
@@ -133,7 +153,7 @@ router.get('/current', requireAuth, async (req, res) => {
             ],
             raw: true
         });
-        if(isNaN(avgRating)) {
+        if(Number.isNaN(avgRating)) {
             spot.avgRating = 'No ratings yet.'
         } else {
             avgRating = avgRating[0].avgRating;
@@ -203,7 +223,7 @@ router.get('/:spotId', async (req, res, next) => {
             ],
             raw: true
         });
-        if(isNaN(avgRating)) {
+        if(Number.isNaN(avgRating)) {
             spot.avgStarRating = 'No ratings yet.'
         } else {
             avgRating = avgRating[0].avgRating;
