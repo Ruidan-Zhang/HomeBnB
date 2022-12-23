@@ -17,6 +17,7 @@ module.exports = {
       },
       {
         spotId: 2,
+        url: 'www.second-spot-image.com',
         preview: false
       },
       {
@@ -27,7 +28,7 @@ module.exports = {
       {
         spotId: 1,
         url: 'www.fourth-spot-image.com',
-        preview: true
+        preview: false
       },
       {
         spotId: 2,
