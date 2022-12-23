@@ -151,7 +151,7 @@ router.get('/current', requireAuth, async (req, res) => {
         if (previewImages.length === 0) {
             spot.previewImage = 'No image available.'
         } else if (previewImages.length > 0) {
-            spot.previewImage = previewImage[0].url;
+            spot.previewImage = previewImages[0].url;
         }
 
         spotsArr.push(spot);
