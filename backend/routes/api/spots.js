@@ -610,7 +610,7 @@ router.post('/:spotId/bookings', validateBooking, requireAuth, async (req, res, 
         err.status = 400;
         next(err)
     } else if (req.user.id === foundSpot.ownerId) {
-        const err = new Error("You can't book your own spot.");
+        const err = new Error("Forbidden");
         err.status = 403;
         next(err)
     }
