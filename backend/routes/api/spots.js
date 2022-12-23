@@ -41,6 +41,7 @@ const validateSpot = [
       .withMessage('Description is required'),
     check('price')
       .exists({ checkFalsy: true })
+      .isNumeric({ min: 0 })
       .withMessage('Price per day is required'),
     handleValidationErrors
   ];
@@ -49,9 +50,10 @@ const validateSpot = [
     check('review')
       .exists({ checkFalsy: true })
       .withMessage('Review text is required'),
-    check('stars', 'Stars must be an integer from 1 to 5')
+    check('stars')
       .exists({ checkFalsy: true })
-      .isInt({ min: 0, max: 5 }),
+      .isInt({ min: 0, max: 5 })
+      .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
   ];
 
@@ -65,9 +67,61 @@ const validateSpot = [
     handleValidationErrors
   ];
 
+  const validateQuery = [
+    check('page')
+      .optional()
+      .isNumeric()
+      .withMessage('Page must be a number'),
+    check('size')
+      .optional()
+      .isNumeric()
+      .withMessage('Size must be a number'),
+    check('page')
+      .optional()
+      .isInt({ min: 1 })
+      .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+      .optional()
+      .isInt({ min: 1 })
+      .withMessage('Size must be greater than or equal to 1'),
+    check('maxLat')
+      .optional()
+      .isDecimal()
+      .withMessage('Maximum latitude is invalid'),
+    check('minLat')
+      .optional()
+      .isDecimal()
+      .withMessage('Minimum latitude is invalid'),
+    check('minLng')
+      .optional()
+      .isDecimal()
+      .withMessage('Minimum longitude is invalid'),
+      check('maxLng')
+      .optional()
+      .isDecimal()
+      .withMessage('Maximum longitude is invalid'),
+      check('minPrice')
+      .optional()
+      .isNumeric()
+      .withMessage('Minimum price must be a number'),
+    check('maxPrice')
+      .optional()
+      .isNumeric()
+      .withMessage('Maximum price must be a number'),
+    check('minPrice')
+      .optional()
+      .isNumeric({ min: 0 })
+      .withMessage('Minimum price must be greater than or equal to 0'),
+    check('maxPrice')
+      .optional()
+      .isNumeric({ min: 0 })
+      .withMessage('Maximum price must be greater than or equal to 0'),
+    handleValidationErrors
+  ];
+
 //Get all Spots
-router.get('/', async (req, res) => {
-    let { page, size, minLat, mixLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+router.get('/', validateQuery, async (req, res) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
 
     const pagination = {};
 
@@ -82,7 +136,45 @@ router.get('/', async (req, res) => {
         pagination.offset = size * (page - 1);
     }
 
-    const spots = await Spot.findAll({...pagination});
+    let query = {
+        where: {},
+        ...pagination
+    }
+
+    //lat query
+    if (minLat && !maxLat) {
+        query.where.lat = { [Op.gte]: req.query.minLat }
+    } else if (!minLat && maxLat) {
+        query.where.lat = { [Op.lte]: req.query.maxLat }
+    } else if (minLat && maxLat) {
+        query.where.lat = {
+            [Op.and]: { [Op.gte]: req.query.minLat, [Op.lte]: req.query.maxLat}
+        }
+    }
+
+    //lng query
+    if (minLng && !maxLng) {
+        query.where.lng = { [Op.gte]: req.query.minLng }
+    } else if (!minLng && maxLng) {
+        query.where.lng = { [Op.lte]: req.query.maxLng }
+    } else if (minLng && maxLng) {
+        query.where.lng = {
+            [Op.and]: { [Op.gte]: req.query.minLng, [Op.lte]: req.query.maxLng}
+        }
+    }
+
+    //price query
+    if (minPrice && !maxPrice) {
+        query.where.price = { [Op.gte]: req.query.minPrice }
+    } else if (!minPrice && maxPrice) {
+        query.where.price = { [Op.lte]: req.query.maxPrice }
+    } else if (minPrice && maxPrice) {
+        query.where.price = {
+            [Op.and]: { [Op.gte]: req.query.minPrice, [Op.lte]: req.query.maxPrice}
+        }
+    }
+
+    const spots = await Spot.findAll(query);
     const spotsArr = [];
 
     for (let spot of spots) {
@@ -117,7 +209,7 @@ router.get('/', async (req, res) => {
         if (previewImages.length === 0) {
             spot.previewImage = 'No image available.'
         } else if (previewImages.length > 0) {
-            spot.previewImage = previewImage[0].url;
+            spot.previewImage = previewImages[0].url;
         }
 
         spotsArr.push(spot);

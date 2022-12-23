@@ -29,6 +29,9 @@ const validateSignup = [
   check('firstName')
     .exists({ checkFalsy: true })
     .withMessage('Must provide a first name'),
+  check('lastName')
+    .exists({ checkFalsy: true })
+    .withMessage('Must provide a last name'),
   handleValidationErrors
 ];
 
