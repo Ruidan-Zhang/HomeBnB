@@ -17,12 +17,21 @@ module.exports = {
       },
       {
         spotId: 2,
-        url: 'www.second-spot-image.com',
         preview: false
       },
       {
         spotId: 3,
         url: 'www.third-spot-image.com',
+        preview: true
+      },
+      {
+        spotId: 1,
+        url: 'www.fourth-spot-image.com',
+        preview: true
+      },
+      {
+        spotId: 2,
+        url: 'www.fifth-spot-image.com',
         preview: true
       }
     ], {});

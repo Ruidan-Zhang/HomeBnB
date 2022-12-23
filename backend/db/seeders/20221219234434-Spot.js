@@ -44,6 +44,30 @@ module.exports = {
         name: "third spot name",
         description: "third spot description",
         price: 30
+      },
+      {
+        ownerId: 1,
+        address: "fourth spot address",
+        city: "city4",
+        state: "state4",
+        country: "country4",
+        lat: 77.7,
+        lng: -88.8,
+        name: "fourth spot name",
+        description: "fourth spot description",
+        price: 40
+      },
+      {
+        ownerId: 2,
+        address: "fifth spot address",
+        city: "city4",
+        state: "state4",
+        country: "country4",
+        lat: 99.9,
+        lng: -100.001,
+        name: "fifth spot name",
+        description: "fifth spot description",
+        price: 50
       }
     ], {});
   },
