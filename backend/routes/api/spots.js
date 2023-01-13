@@ -637,8 +637,6 @@ router.post('/:spotId/bookings', validateBooking, requireAuth, async (req, res, 
                 }
             })
         } else if (startDate <= eachBooking.endDate && endDate > eachBooking.endDate) {
-            console.log(startDate);
-            console.log(eachBooking.startDate)
             res.status = 403;
             res.statusCode = 403;
             return res.json({
