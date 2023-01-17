@@ -12,27 +12,42 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: 'www.first-spot-image.com',
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-52675973/original/45efa289-0c73-4655-921f-0101e5b67b91.jpeg?im_w=1200',
         preview: true
       },
       {
         spotId: 2,
-        url: 'www.second-spot-image.com',
-        preview: false
+        url: 'https://a0.muscache.com/im/pictures/dc95c204-8be3-4b8d-8a88-251d1f6381af.jpg?im_w=1200',
+        preview: true
       },
       {
         spotId: 3,
-        url: 'www.third-spot-image.com',
+        url: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-43767180/original/c24d44fa-996b-4c38-a4b5-f429e8307d0f.jpeg?im_w=1200',
         preview: true
       },
       {
-        spotId: 1,
-        url: 'www.fourth-spot-image.com',
-        preview: false
+        spotId: 4,
+        url: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-45987517/original/e50a3c60-b4d7-4070-8aaa-a8c873ebd1c8.jpeg?im_w=1200',
+        preview: true
       },
       {
-        spotId: 2,
-        url: 'www.fifth-spot-image.com',
+        spotId: 5,
+        url: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-44306436/original/9a5aa02d-b57a-453b-828d-253e9479dfa3.jpeg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 6,
+        url: 'https://a0.muscache.com/im/pictures/cb1f948e-5c43-4390-8b86-06e7a2f6a28a.jpg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 7,
+        url: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-613825092990187953/original/e0631e7f-713a-4c9d-bd92-9e30f6fc43eb.jpeg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 8,
+        url: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-613825092990187953/original/2edbd551-71dd-48dc-8d4a-8b75f01a0764.jpeg?im_w=1440',
         preview: true
       }
     ], {});
