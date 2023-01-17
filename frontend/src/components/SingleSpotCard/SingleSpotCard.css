@@ -14,3 +14,7 @@
 .single-spot-address-and-rating{
   display: flex;
 }
+
+.single-spot-card-container :hover {
+  cursor: pointer;
+}
