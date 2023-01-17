@@ -13,7 +13,7 @@ const AllSpotsComponent = () => {
         dispatch(getAllSpotsThunk());
     }, [dispatch]);
 
-    if (!allSpots) return null;
+    if (!allSpots || !allSpotsObj) return null;
 
     return (
         <div className="all-spots-container">

@@ -21,6 +21,7 @@ export const getAllSpotsThunk = () => async dispatch => {
     }
 };
 
+//spots reducer
 const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
@@ -35,6 +36,6 @@ const spotsReducer = (state = initialState, action) => {
         default:
             return state;
     }
-}
+};
 
 export default spotsReducer;
