@@ -48,19 +48,19 @@ module.exports = {
       },
       {
         spotId: 7,
-        userId: 1,
+        userId: 5,
         review: "We loved the experience of relaxing at this place, having a cup of tea looking out at the trees, and watching movie marathons on the projector. It’s the perfect set up for a relaxing get away.",
         stars: 5
       },
       {
         spotId: 8,
-        userId: 2,
+        userId: 6,
         review: "A magical and quaint escape from the daily grind. Highly recommend!",
         stars: 4
       },
       {
         spotId: 5,
-        userId: 2,
+        userId: 7,
         review: "Sinks are dirty.",
         stars: 3
       },
@@ -72,7 +72,7 @@ module.exports = {
       },
       {
         spotId: 1,
-        userId: 2,
+        userId: 5,
         review: "Had an excellent time here. Definitely feels more like camping than a hotel stay, which my partner and I love. The bed was super comfy and it was great spending almost the whole day in the sun on the patio.",
         stars: 5
       },
@@ -90,7 +90,7 @@ module.exports = {
       },
       {
         spotId: 4,
-        userId: 2,
+        userId: 6,
         review: "Great weekend getaway. Place is exactly as described. The back porch is relaxing. If it is raining you will get slightly wet but there is a good amount of tree cover. Recommend turning the heat off at night as the loft can get warmer. Quick connections to some great hikes, waterfalls and good food in Snoqualmie and North bend.",
         stars: 4
       }
