@@ -23,7 +23,7 @@ const AllSpotsComponent = () => {
                 city={spot.city}
                 state={spot.state}
                 price={spot.price}
-                avaRating={spot.avaRating}
+                avgRating={spot.avgRating}
                 previewImage={spot.previewImage}
                 />
             ))}
