@@ -46,7 +46,7 @@ module.exports = {
         price: 932
       },
       {
-        ownerId: 1,
+        ownerId: 4,
         address: "fourth spot address",
         city: "Waterloo",
         state: "South Carolina",
@@ -58,7 +58,7 @@ module.exports = {
         price: 216
       },
       {
-        ownerId: 2,
+        ownerId: 5,
         address: "fifth spot address",
         city: "Orlando",
         state: "Florida",
@@ -70,7 +70,7 @@ module.exports = {
         price: 164
       },
       {
-        ownerId: 1,
+        ownerId: 6,
         address: "sixth spot address",
         city: "Cocoa Beach",
         state: "Florida",
@@ -82,7 +82,7 @@ module.exports = {
         price: 958
       },
       {
-        ownerId: 2,
+        ownerId: 7,
         address: "seventh spot address",
         city: "Hopatcong",
         state: "New Jersey",
