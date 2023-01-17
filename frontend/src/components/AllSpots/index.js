@@ -22,8 +22,6 @@ const AllSpotsComponent = () => {
                 id={spot.id}
                 city={spot.city}
                 state={spot.state}
-                name={spot.name}
-                description={spot.description}
                 price={spot.price}
                 avaRating={spot.avaRating}
                 previewImage={spot.previewImage}
