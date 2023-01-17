@@ -28,6 +28,7 @@ const singleSpotReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SINGLE_SPOT: {
             const newState = { ...state };
+            // console.log("hiiiii", newState)
             newState[action.spot.id] = action.spot
             const foundSpot = newState[action.spot.id];
             return foundSpot;
