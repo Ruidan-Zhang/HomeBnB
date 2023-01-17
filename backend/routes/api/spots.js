@@ -195,7 +195,7 @@ router.get('/', validateQuery, async (req, res) => {
         const avgRatingObj = avgRatingArr[0];
 
         if(!avgRatingObj.avgRating) {
-            spot.avgRating = 'No ratings yet.'
+            spot.avgRating = 'N/A'
         } else {
             spot.avgRating = avgRatingObj.avgRating;
         }
@@ -251,7 +251,7 @@ router.get('/current', requireAuth, async (req, res) => {
         const avgRatingObj = avgRatingArr[0];
 
         if(!avgRatingObj.avgRating) {
-            spot.avgRating = 'No ratings yet.'
+            spot.avgRating = 'N/A'
         } else {
             spot.avgRating = avgRatingObj.avgRating;
         }
@@ -323,7 +323,7 @@ router.get('/:spotId', async (req, res, next) => {
         const avgRatingObj = avgRatingArr[0];
 
         if(!avgRatingObj.avgRating) {
-            spot.avgStarRating = 'No ratings yet.'
+            spot.avgStarRating = 'N/A'
         } else {
             spot.avgStarRating = avgRatingObj.avgRating;
         }
