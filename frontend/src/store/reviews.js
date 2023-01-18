@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_ALL_REVIEWS = 'reviews/LOAD';
 const CREATE_REVIEW = 'review/CREATE';
 const DELETE_REVIEW = 'review/DELETE';
+const CLEAN_UP_REVIEWS = 'reviews/CLEANUP';
 
 //action creators
 export const loadAllReviewsAction = (reviews, spotId) => {
@@ -28,9 +29,15 @@ export const deleteReviewAction = (badReviewId) => {
     }
 };
 
+export const cleanUpReviewsAction = () => {
+    return {
+        type: CLEAN_UP_REVIEWS
+    }
+};
+
 //thunks
 export const loadAllReviewsThunk = (spotId) => async dispatch => {
-    const response = await csrfFetch(`/spots/${spotId}/reviews`);
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
 
     if (response.ok) {
         const allReviews = await response.json();
@@ -76,7 +83,7 @@ const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_ALL_REVIEWS: {
             const newState = { ...state };
-            action.reviews.forEach(review => {
+            action.spotId.Reviews.forEach(review => {
                 newState[review.id] = review;
             });
             return newState;
@@ -91,6 +98,10 @@ const reviewsReducer = (state = initialState, action) => {
             delete newState[action.badReviewId];
             return newState;
         };
+        case CLEAN_UP_REVIEWS: {
+            const newState = { ...initialState };
+            return newState;
+        }
         default:
             return state;
     }

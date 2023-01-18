@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { loadSingleSpotThunk } from "../../store/single";
 import { deleteSpotThunk } from "../../store/spots";
 import { cleanUpSingleSpotAction } from "../../store/single";
+import AllReviewsComponent from "../AllReviews";
 import './SingleSpotDetails.css';
 
 const SingleSpotDetails = () => {
@@ -62,6 +63,7 @@ const SingleSpotDetails = () => {
             </div>
             <div className="single-spot-reviews">
                 <h2><i className="fa-solid fa-star"></i>{foundSpot.avgStarRating} · {foundSpot.numReviews} reviews</h2>
+                <AllReviewsComponent spotId={spotId}/>
             </div>
         </div>
     )
