@@ -12,6 +12,7 @@ const SingleSpotDetails = () => {
 
     const { spotId } = useParams();
     const foundSpot = useSelector(state => state.single);
+    console.log('hi', foundSpot)
 
     const currentUser = useSelector(state => state.session.user);
 
@@ -39,7 +40,7 @@ const SingleSpotDetails = () => {
             <div className="single-spot-header-container">
                 <h4 className="single-spot-header">
                     <i className="fa-solid fa-star"></i>{foundSpot.avgStarRating} · {foundSpot.numReviews} reviews · {foundSpot.city}, {foundSpot.state}, {foundSpot.country}
-                    {foundSpot.id === currentUser.id && (
+                    {foundSpot.ownerId === currentUser.id && (
                     <div className="edit-and-delete-spot-buttons">
                         <button onClick={editFormRedirection}>Edit this spot</button>
                         <button onClick={deleteSpotRedirection}>Delete this spot</button>
