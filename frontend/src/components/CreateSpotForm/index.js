@@ -19,7 +19,7 @@ function CreateSpotForm() {
   const [price, setPrice] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newSpot = {
@@ -27,15 +27,15 @@ function CreateSpotForm() {
       city,
       state,
       country,
-      lat,
-      lng,
+      lat: 100,
+      lng: 200,
       name,
       description,
       price
     };
 
-    dispatch(createSpotThunk(newSpot));
-    history.push(`/spots/${newSpot.id}`);
+    const createdSpot = await dispatch(createSpotThunk(newSpot));
+    history.push(`/spots/${createdSpot.id}`);
   };
 
   return (
@@ -82,24 +82,6 @@ function CreateSpotForm() {
           type="text"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Lat:
-        <input
-          type="text"
-          value={lat}
-          onChange={(e) => setLat(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Lng:
-        <input
-          type="text"
-          value={lng}
-          onChange={(e) => setLng(e.target.value)}
           required
         />
       </label>
