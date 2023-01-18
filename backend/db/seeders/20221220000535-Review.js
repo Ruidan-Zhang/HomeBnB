@@ -93,7 +93,25 @@ module.exports = {
         userId: 6,
         review: "Great weekend getaway. Place is exactly as described. The back porch is relaxing. If it is raining you will get slightly wet but there is a good amount of tree cover. Recommend turning the heat off at night as the loft can get warmer. Quick connections to some great hikes, waterfalls and good food in Snoqualmie and North bend.",
         stars: 4
-      }
+      },
+      {
+        spotId: 1,
+        userId: 4,
+        review: "Great experience. Rooms were cozy and clean. View was good.",
+        stars: 4
+      },
+      {
+        spotId: 1,
+        userId: 2,
+        review: "We stayed in this place in July but there was no AC. Super uncomfortable.",
+        stars: 2
+      },
+      {
+        spotId: 1,
+        userId: 6,
+        review: "Incredible service and view. Highly recommend!",
+        stars: 5
+      },
     ], {});
   },
 
