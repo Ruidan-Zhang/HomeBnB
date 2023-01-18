@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { createSpotThunk } from "../../store/spots";
+import './CreateSpotForm.css';
 
 function CreateSpotForm() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
+  const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
+  const [lat, setLat] = useState(100);
+  const [lng, setLng] = useState(200);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -15,21 +21,27 @@ function CreateSpotForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newSpot = {
-        city,
-        state,
-        country,
-        name,
-        description,
-        price
+      address,
+      city,
+      state,
+      country,
+      lat,
+      lng,
+      name,
+      description,
+      price
     };
+
     dispatch(createSpotThunk(newSpot));
+    history.push(`/spots/${newSpot.id}`);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='create-spot-form'>
       <label>
-        Name
+        Name:
         <input
           type="text"
           value={name}
@@ -38,7 +50,7 @@ function CreateSpotForm() {
         />
       </label>
       <label>
-        city
+        City:
         <input
           type="text"
           value={city}
@@ -47,7 +59,7 @@ function CreateSpotForm() {
         />
       </label>
       <label>
-        State
+        State:
         <input
           type="text"
           value={state}
@@ -56,7 +68,7 @@ function CreateSpotForm() {
         />
       </label>
       <label>
-        Country
+        Country:
         <input
           type="text"
           value={country}
@@ -65,16 +77,43 @@ function CreateSpotForm() {
         />
       </label>
       <label>
-        description
+        Address:
         <input
           type="text"
-          value={description}
-          onChange={(e) => description(e.target.value)}
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
           required
         />
       </label>
       <label>
-      price
+        Lat:
+        <input
+          type="text"
+          value={lat}
+          onChange={(e) => setLat(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        Lng:
+        <input
+          type="text"
+          value={lng}
+          onChange={(e) => setLng(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        Description:
+        <input
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+      Price:
         <input
           type="text"
           value={price}
