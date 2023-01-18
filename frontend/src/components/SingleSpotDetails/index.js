@@ -12,7 +12,6 @@ const SingleSpotDetails = () => {
 
     const { spotId } = useParams();
     const foundSpot = useSelector(state => state.single);
-    console.log('hi', foundSpot)
 
     const currentUser = useSelector(state => state.session.user);
 
