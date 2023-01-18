@@ -14,7 +14,7 @@ const SingleSpotDetails = () => {
     }, [dispatch, spotId]);
 
     if (!foundSpot) return null;
-    console.log(foundSpot)
+
     return (
         <div className="single-spot-details-page-container">
             <h2>{foundSpot.name}</h2>
@@ -28,7 +28,7 @@ const SingleSpotDetails = () => {
             <div className="single-spot-images">
                 {foundSpot.SpotImages && (
                     foundSpot.SpotImages.map(image => (
-                        <img src={image.url} alt={foundSpot.name}/>
+                        <img src={image.url} alt={foundSpot.name} key={image.id}/>
                     ))
                 )}
             </div>
