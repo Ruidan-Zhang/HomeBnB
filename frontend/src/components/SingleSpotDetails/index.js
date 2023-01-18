@@ -4,13 +4,16 @@ import { useHistory, useParams } from "react-router-dom";
 import { loadSingleSpotThunk } from "../../store/single";
 import { deleteSpotThunk } from "../../store/spots";
 import { cleanUpSingleSpotAction } from "../../store/single";
+import './SingleSpotDetails.css';
 
 const SingleSpotDetails = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
     const { spotId } = useParams();
-    const foundSpot = useSelector(state => state.single)
+    const foundSpot = useSelector(state => state.single);
+
+    const currentUser = useSelector(state => state.session.user);
 
     useEffect(() => {
         dispatch(loadSingleSpotThunk(spotId));
@@ -33,11 +36,15 @@ const SingleSpotDetails = () => {
     return (
         <div className="single-spot-details-page-container">
             <h2>{foundSpot.name}</h2>
-            <div className="single-spot-header">
-                <h4>
+            <div className="single-spot-header-container">
+                <h4 className="single-spot-header">
                     <i className="fa-solid fa-star"></i>{foundSpot.avgStarRating} · {foundSpot.numReviews} reviews · {foundSpot.city}, {foundSpot.state}, {foundSpot.country}
-                    <button onClick={editFormRedirection}>Edit this spot</button>
-                    <button onClick={deleteSpotRedirection}>Delete this spot</button>
+                    {foundSpot.id === currentUser.id && (
+                    <div className="edit-and-delete-spot-buttons">
+                        <button onClick={editFormRedirection}>Edit this spot</button>
+                        <button onClick={deleteSpotRedirection}>Delete this spot</button>
+                    </div>
+                    )}
                 </h4>
             </div>
             <div className="single-spot-images">
