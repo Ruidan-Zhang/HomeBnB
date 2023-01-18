@@ -20,11 +20,10 @@ function EditSpotForm() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [errors, setErrors] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log('test 1')
+
     foundSpot = {
       ...foundSpot,
       address,
@@ -37,14 +36,9 @@ function EditSpotForm() {
       description,
       price
     };
-    // console.log('test 2')
     dispatch(editSpotThunk(foundSpot));
-    // console.log('test 3')
     history.push(`/spots/${spotId}`);
-    // console.log('test 4')
   };
-
-//   if (!foundSpot) return null;
 
   return (
     <form onSubmit={handleSubmit} className='edit-spot-form'>
