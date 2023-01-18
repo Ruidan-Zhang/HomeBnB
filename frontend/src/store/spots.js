@@ -63,22 +63,15 @@ export const createSpotThunk = (spot) => async dispatch => {
 };
 
 export const editSpotThunk = (spot) => async dispatch => {
-    // console.log('test 1')
-    // console.log('test 5', spot)
-    // console.log('test 6', spot.id)
-    // console.log('test 7', typeof spot)
     const response = await csrfFetch(`/api/spots/${spot.id}`, {
       method: "PUT",
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({spot}),
+      body: JSON.stringify(spot),
     });
-    // console.log('test 2', response)
 
     if (response.ok) {
-        // console.log('test 3')
         const updatedSpot = await response.json();
         dispatch(editSpotAction(updatedSpot));
-        // console.log('test 4', updatedSpot)
         return updatedSpot;
     }
 };
