@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { loadSingleSpotThunk } from "../../store/single";
 
 const SingleSpotDetails = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
 
     const { spotId } = useParams();
@@ -13,6 +14,11 @@ const SingleSpotDetails = () => {
         dispatch(loadSingleSpotThunk(spotId))
     }, [dispatch, spotId]);
 
+    const editFormRedirection = (e) => {
+        e.preventDefault();
+        history.push(`/edit-spot/${spotId}`);
+      }
+
     if (!foundSpot) return null;
 
     return (
@@ -21,7 +27,7 @@ const SingleSpotDetails = () => {
             <div className="single-spot-header">
                 <h4>
                     <i className="fa-solid fa-star"></i>{foundSpot.avgStarRating} · {foundSpot.numReviews} reviews · {foundSpot.city}, {foundSpot.state}, {foundSpot.country}
-                    <button>Edit this spot</button>
+                    <button onClick={editFormRedirection}>Edit this spot</button>
                     <button>Delete this spot</button>
                 </h4>
             </div>
