@@ -12,11 +12,11 @@ function CreateSpotForm() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
-  const [lat, setLat] = useState(100);
-  const [lng, setLng] = useState(200);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [url, setUrl] = useState('');
+  const [preview, setPreview] = useState(true);
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
@@ -34,7 +34,7 @@ function CreateSpotForm() {
       price
     };
 
-    const createdSpot = await dispatch(createSpotThunk(newSpot));
+    const {createdSpot} = await dispatch(createSpotThunk(newSpot, url, preview));
     history.push(`/spots/${createdSpot.id}`);
   };
 
@@ -91,6 +91,15 @@ function CreateSpotForm() {
           type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        Image:
+        <input
+          type="text"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
           required
         />
       </label>

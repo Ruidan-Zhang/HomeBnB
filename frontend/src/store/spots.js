@@ -4,6 +4,7 @@ const LOAD_ALL_SPOTS = 'spots/LOAD';
 const CREATE_SPOT = 'spot/CREATE';
 const EDIT_SPOT = 'spot/EDIT';
 const DELETE_SPOT = 'spot/DELETE';
+const ADD_SPOT_IMAGE = 'spot-image/ADD';
 
 //action creators
 export const loadAllSpotsAction = (spots) => {
@@ -34,6 +35,15 @@ export const deleteSpotAction = (badSpotId) => {
     }
 };
 
+export const addSpotImageAction = (spotId, url, preview) => {
+    return {
+        type: ADD_SPOT_IMAGE,
+        spotId,
+        url,
+        preview
+    }
+};
+
 //thunks
 export const getAllSpotsThunk = () => async dispatch => {
     const response = await csrfFetch('/api/spots');
@@ -45,7 +55,7 @@ export const getAllSpotsThunk = () => async dispatch => {
     }
 };
 
-export const createSpotThunk = (spot) => async dispatch => {
+export const createSpotThunk = (spot, url, preview) => async dispatch => {
     const { address, city, state, country, lat, lng, name, description, price } = spot;
     const response = await csrfFetch("/api/spots", {
       method: "POST",
@@ -64,9 +74,27 @@ export const createSpotThunk = (spot) => async dispatch => {
     });
 
     if (response.ok) {
-        const data = await response.json();
-        dispatch(createSpotAction(data));
-        return data;
+        const createdSpot = await response.json();
+        console.log("created spot:", createdSpot)
+
+        const response2 = await csrfFetch(`/api/spots/${createdSpot.id}/images`, {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            url,
+            preview
+            }),
+        });
+        console.log("response2:", response2)
+
+
+        if (response2.ok) {
+            const addedImage = await response2.json();
+            console.log("added image:", addedImage)
+            dispatch(createSpotAction(createdSpot));
+            dispatch(addSpotImageAction(addedImage))
+            return {createdSpot, addedImage};
+        }
     }
 };
 

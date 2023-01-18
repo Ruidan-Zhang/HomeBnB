@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { loadSingleSpotThunk } from "../../store/single";
 import { deleteSpotThunk } from "../../store/spots";
+import { cleanUpSingleSpotAction } from "../../store/single";
 
 const SingleSpotDetails = () => {
     const history = useHistory();
@@ -12,7 +13,8 @@ const SingleSpotDetails = () => {
     const foundSpot = useSelector(state => state.single)
 
     useEffect(() => {
-        dispatch(loadSingleSpotThunk(spotId))
+        dispatch(loadSingleSpotThunk(spotId));
+        return () => dispatch(cleanUpSingleSpotAction());
     }, [dispatch, spotId]);
 
     const editFormRedirection = (e) => {
