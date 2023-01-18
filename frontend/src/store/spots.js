@@ -75,7 +75,6 @@ export const createSpotThunk = (spot, url, preview) => async dispatch => {
 
     if (response.ok) {
         const createdSpot = await response.json();
-        console.log("created spot:", createdSpot)
 
         const response2 = await csrfFetch(`/api/spots/${createdSpot.id}/images`, {
         method: "POST",
@@ -85,12 +84,9 @@ export const createSpotThunk = (spot, url, preview) => async dispatch => {
             preview
             }),
         });
-        console.log("response2:", response2)
-
 
         if (response2.ok) {
             const addedImage = await response2.json();
-            console.log("added image:", addedImage)
             dispatch(createSpotAction(createdSpot));
             dispatch(addSpotImageAction(addedImage))
             return {createdSpot, addedImage};
