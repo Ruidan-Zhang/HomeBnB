@@ -1,12 +1,20 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD_ALL_SPOTS = 'spots/LOAD';
+const CREATE_SPOT = 'spot/CREATE';
 
 //action creators
 export const loadAllSpotsAction = (spots) => {
     return {
         type: LOAD_ALL_SPOTS,
         spots
+    }
+};
+
+export const createSpotAction = (newSpot) => {
+    return {
+        type: CREATE_SPOT,
+        newSpot
     }
 };
 
@@ -19,6 +27,24 @@ export const getAllSpotsThunk = () => async dispatch => {
         dispatch(loadAllSpotsAction(allSpots));
         return allSpots;
     }
+};
+
+export const createSpotThunk = (spot) => async dispatch => {
+    const { city, state, country, name, description, price } = spot;
+    const response = await csrfFetch("/api/spots", {
+      method: "POST",
+      body: JSON.stringify({
+        city,
+        state,
+        country,
+        name,
+        description,
+        price
+      }),
+    });
+    const data = await response.json();
+    dispatch(createSpotAction(data.spot));
+    return response;
 };
 
 //spots reducer
