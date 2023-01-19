@@ -22,7 +22,6 @@ const AllReviewsComponent = ({ spotId }) => {
             {allReviews.map((singleReview) => (
                 <SingleReviewCard key={singleReview.id}
                 review={singleReview.review}
-                stars={singleReview.stars}
                 user={singleReview.User.firstName}
                 reviewOwnerId={singleReview.User.id}
                 reviewId={singleReview.id}
