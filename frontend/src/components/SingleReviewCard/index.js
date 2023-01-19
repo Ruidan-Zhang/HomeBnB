@@ -19,9 +19,9 @@ const SingleReviewCard = ({review, stars, user, reviewOwnerId, reviewId, spotId}
         <div className="single-review-card-container">
             <div className='single-review-header'>
                 <div className="single-review-reviewOwner">{user}</div>
-                {/* <div className="single-review-star">{stars}</div> */}
+                <div className="single-review-star">{stars}</div>
             </div>
-            {currentUser.id === reviewOwnerId && (
+            {(currentUser && currentUser.id === reviewOwnerId) && (
                 <button onClick={deleteReviewHandler}>Delete This Review</button>
             )}
             <div className="single-review-content">{review}</div>
