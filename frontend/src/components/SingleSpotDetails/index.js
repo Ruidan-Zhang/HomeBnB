@@ -16,6 +16,11 @@ const SingleSpotDetails = () => {
 
     const currentUser = useSelector(state => state.session.user);
 
+    const avgRatingFormat = (rating) => {
+        if (typeof rating === 'number') return rating.toFixed(2);
+        else return rating;
+    };
+
     useEffect(() => {
         dispatch(loadSingleSpotThunk(spotId));
         return () => dispatch(cleanUpSingleSpotAction());
@@ -39,7 +44,7 @@ const SingleSpotDetails = () => {
             <h2>{foundSpot.name}</h2>
             <div className="single-spot-header-container">
                 <h4 className="single-spot-header">
-                    <i className="fa-solid fa-star"></i>{foundSpot.avgStarRating} · {foundSpot.numReviews} reviews · {foundSpot.city}, {foundSpot.state}, {foundSpot.country}
+                    <i className="fa-solid fa-star"></i>{avgRatingFormat(foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews · {foundSpot.city}, {foundSpot.state}, {foundSpot.country}
                     {foundSpot.ownerId === currentUser.id && (
                     <div className="edit-and-delete-spot-buttons">
                         <button onClick={editFormRedirection}>Edit this spot</button>
@@ -62,7 +67,7 @@ const SingleSpotDetails = () => {
                 <p>{foundSpot.description}</p>
             </div>
             <div className="single-spot-reviews">
-                <h2><i className="fa-solid fa-star"></i>{foundSpot.avgStarRating} · {foundSpot.numReviews} reviews</h2>
+                <h2><i className="fa-solid fa-star"></i>{avgRatingFormat(foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews</h2>
                 <AllReviewsComponent spotId={spotId}/>
             </div>
         </div>

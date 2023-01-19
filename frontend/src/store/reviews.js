@@ -76,7 +76,7 @@ export const deleteReviewThunk = (badReviewId) => async dispatch => {
     }
 };
 
-//spots reducer
+//reviews reducer
 const initialState = {};
 
 const reviewsReducer = (state = initialState, action) => {

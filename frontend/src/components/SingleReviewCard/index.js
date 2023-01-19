@@ -1,4 +1,16 @@
-const SingleReviewCard = ({review, stars, user}) => {
+import { useDispatch, useSelector } from "react-redux";
+import { deleteReviewThunk } from "../../store/reviews";
+import { loadSingleSpotThunk } from "../../store/single";
+
+const SingleReviewCard = ({review, stars, user, reviewOwnerId, reviewId, spotId}) => {
+    const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.session.user);
+
+    const deleteReviewHandler = async (e) => {
+        e.preventDefault();
+        await dispatch(deleteReviewThunk(reviewId));
+        dispatch(loadSingleSpotThunk(spotId))
+    };
 
     if (!review) return null;
 
@@ -8,6 +20,9 @@ const SingleReviewCard = ({review, stars, user}) => {
                 <div className="single-review-reviewOwner">{user}</div>
                 <div className="single-review-star">{stars}</div>
             </div>
+            {currentUser.id === reviewOwnerId && (
+                <button onClick={deleteReviewHandler}>Delete This Review</button>
+            )}
             <div className="single-review-content">{review}</div>
         </div>
     )
