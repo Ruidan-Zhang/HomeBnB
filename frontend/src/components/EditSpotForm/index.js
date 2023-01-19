@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { editSpotThunk } from "../../store/spots";
@@ -18,6 +18,23 @@ function EditSpotForm() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    const newErrors = [];
+
+    if (name.length === 0) newErrors.push('Please enter a name for this spot.');
+    if (name.length > 49) newErrors.push('Name is too long.');
+    if (city.length === 0) newErrors.push('City is required.');
+    if (state.length === 0) newErrors.push('State is required.');
+    if (country.length === 0) newErrors.push('Country is required.');
+    if (address.length === 0) newErrors.push('Address is required.');
+    if (description.length === 0) newErrors.push('Description is required.');
+    if (!price) newErrors.push('Price is required.');
+    if (price && price < 0) newErrors.push('Price must be greater than $0.');
+
+    setErrors(newErrors);
+  }, [name, city, state, country, address, description, price]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,6 +58,11 @@ function EditSpotForm() {
   return (
     <form onSubmit={handleSubmit} className='edit-spot-form'>
       <h2>Edit this spot</h2>
+      {errors.length && (
+        <ul>
+          {errors.map(error => <li key={error}>{error}</li>)}
+        </ul>
+      )}
       <input
         type="text"
         placeholder="Name"
@@ -87,6 +109,7 @@ function EditSpotForm() {
       Price: $
         <input
           type="number"
+          min='0'
           placeholder="Price per night"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
