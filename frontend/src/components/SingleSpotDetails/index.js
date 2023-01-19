@@ -16,6 +16,9 @@ const SingleSpotDetails = () => {
 
     const currentUser = useSelector(state => state.session.user);
 
+    const allReviewsObj = useSelector(state => state.reviews);
+    const allReviews = Object.values(allReviewsObj);
+
     const avgRatingFormat = (rating) => {
         if (typeof rating === 'number') return rating.toFixed(2);
         else return rating;
@@ -56,7 +59,9 @@ const SingleSpotDetails = () => {
                         <button onClick={deleteSpotRedirection}>Delete this spot</button>
                     </div>
                     )}
-                    {(currentUser && foundSpot.ownerId !== currentUser.id) && (
+                    {(currentUser && foundSpot.ownerId !== currentUser.id && (
+                        !allReviews.find(review => review.userId === currentUser.id)
+                    )) && (
                     <div className="create-review-button">
                         <button onClick={createReviewRedirection}>Write a review!</button>
                     </div>
