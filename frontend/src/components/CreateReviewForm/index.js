@@ -28,21 +28,25 @@ function CreateReviewForm() {
 
   return (
     <form onSubmit={handleSubmit} className='create-review-form'>
+      <h2>Leave a review for this spot!</h2>
       <label>
-        Share your thoughts about this place:
+        Stars: {' '}
         <input
-          type="text"
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
+          type="number"
+          min="1"
+          max="5"
+          value={stars}
+          onChange={(e) => setStars(e.target.value)}
           required
         />
       </label>
       <label>
-        Stars:
+        Reviews: {' '}
         <input
           type="text"
-          value={stars}
-          onChange={(e) => setStars(e.target.value)}
+          placeholder="How did you like this place?"
+          value={review}
+          onChange={(e) => setReview(e.target.value)}
           required
         />
       </label>

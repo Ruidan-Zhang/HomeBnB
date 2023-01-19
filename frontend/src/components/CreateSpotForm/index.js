@@ -40,73 +40,82 @@ function CreateSpotForm() {
 
   return (
     <form onSubmit={handleSubmit} className='create-spot-form'>
+      <h2>Create your own spot!</h2>
       <label>
-        Name:
+        Name: {' '}
         <input
           type="text"
+          placeholder="Give this spot a name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
       </label>
       <label>
-        City:
+        City: {' '}
         <input
           type="text"
+          placeholder="Example: Seattle"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           required
         />
       </label>
       <label>
-        State:
+        State: {' '}
         <input
           type="text"
+          placeholder="Example: Washington"
           value={state}
           onChange={(e) => setState(e.target.value)}
           required
         />
       </label>
       <label>
-        Country:
+        Country: {' '}
         <input
           type="text"
+          placeholder="Example: United States"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
           required
         />
       </label>
       <label>
-        Address:
+        Address: {' '}
         <input
           type="text"
+          placeholder="Example: 123 Main St."
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           required
         />
       </label>
       <label>
-        Description:
+        Description: {' '}
         <input
           type="text"
+          placeholder="Describe this spot!"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
       </label>
       <label>
-        Image:
+        Image: {' '}
         <input
-          type="text"
+          type="url"
+          placeholder="https://example.com"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           required
         />
       </label>
       <label>
-      Price:
+      Price: $
         <input
-          type="text"
+          type="number"
+          placeholder="Price per night"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           required
