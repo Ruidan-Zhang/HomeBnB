@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadAllReviewsThunk } from "../../store/reviews";
 import SingleReviewCard from "../SingleReviewCard";
 import { cleanUpReviewsAction } from "../../store/reviews";
+import './AllReviews.css';
 
 const AllReviewsComponent = ({ spotId }) => {
     const dispatch = useDispatch();
