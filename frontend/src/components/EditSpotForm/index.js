@@ -116,7 +116,9 @@ function EditSpotForm() {
           required
         />
       </label>
-      <button type="submit">Submit</button>
+      <div className="edit-spot-submit-button">
+        <button type="submit">Submit</button>
+      </div>
     </form>
   );
 }

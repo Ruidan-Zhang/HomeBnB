@@ -64,7 +64,9 @@ function CreateReviewForm() {
         onChange={(e) => setReview(e.target.value)}
         required
       />
-      <button type="submit">Submit</button>
+      <div className="create-review-submit-button">
+        <button type="submit">Submit</button>
+      </div>
     </form>
   );
 }
