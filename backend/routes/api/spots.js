@@ -516,6 +516,9 @@ router.post('/:spotId/reviews', validateReview, requireAuth, async (req, res, ne
     const { spotId } = req.params;
     const foundSpot = await Spot.findByPk(spotId);
 
+    const currentUser = await User.findByPk(req.user.id);
+    const firstName = currentUser.firstName;
+
     const foundReview = await Review.findOne({
         where: {
             userId: req.user.id,
@@ -541,7 +544,7 @@ router.post('/:spotId/reviews', validateReview, requireAuth, async (req, res, ne
         });
 
         res.statusCode = 201;
-        return res.json(newReview);
+        return res.json({...newReview, User: firstName});
     }
 });
 

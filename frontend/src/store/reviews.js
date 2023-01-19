@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD_ALL_REVIEWS = 'reviews/LOAD';
+const LOAD_CURRENT_USER_REVIEWS = 'current-user-reviews/LOAD';
 const CREATE_REVIEW = 'review/CREATE';
 const DELETE_REVIEW = 'review/DELETE';
 const CLEAN_UP_REVIEWS = 'reviews/CLEANUP';
@@ -11,6 +12,13 @@ export const loadAllReviewsAction = (reviews, spotId) => {
         type: LOAD_ALL_REVIEWS,
         reviews,
         spotId
+    }
+};
+
+export const loadCurrentUserReviewsAction = (userId) => {
+    return {
+        type: LOAD_CURRENT_USER_REVIEWS,
+        userId
     }
 };
 
@@ -43,6 +51,16 @@ export const loadAllReviewsThunk = (spotId) => async dispatch => {
         const allReviews = await response.json();
         dispatch(loadAllReviewsAction(spotId, allReviews));
         return allReviews;
+    }
+};
+
+export const loadCurrentUserReviewsThunk = (userId) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/current`);
+
+    if (response.ok) {
+        const allUserReviews = await response.json();
+        dispatch(loadCurrentUserReviewsAction(userId));
+        return allUserReviews;
     }
 };
 
@@ -86,6 +104,10 @@ const reviewsReducer = (state = initialState, action) => {
             action.spotId.Reviews.forEach(review => {
                 newState[review.id] = review;
             });
+            return newState;
+        };
+        case LOAD_CURRENT_USER_REVIEWS: {
+            const newState = { ...state };
             return newState;
         };
         case CREATE_REVIEW: {

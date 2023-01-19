@@ -37,6 +37,11 @@ const SingleSpotDetails = () => {
         history.push(`/`);
     };
 
+    const createReviewRedirection = (e) => {
+        e.preventDefault();
+        history.push(`/spots/${spotId}/write-a-review`);
+    };
+
     if (!foundSpot) return null;
 
     return (
@@ -45,10 +50,15 @@ const SingleSpotDetails = () => {
             <div className="single-spot-header-container">
                 <h4 className="single-spot-header">
                     <i className="fa-solid fa-star"></i>{avgRatingFormat(foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews · {foundSpot.city}, {foundSpot.state}, {foundSpot.country}
-                    {foundSpot.ownerId === currentUser.id && (
+                    {(currentUser && foundSpot.ownerId === currentUser.id) && (
                     <div className="edit-and-delete-spot-buttons">
                         <button onClick={editFormRedirection}>Edit this spot</button>
                         <button onClick={deleteSpotRedirection}>Delete this spot</button>
+                    </div>
+                    )}
+                    {foundSpot.ownerId !== currentUser.id && (
+                    <div className="create-review-button">
+                        <button onClick={createReviewRedirection}>Write a review!</button>
                     </div>
                     )}
                 </h4>
