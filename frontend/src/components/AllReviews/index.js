@@ -14,7 +14,7 @@ const AllReviewsComponent = ({ spotId }) => {
         return () => dispatch(cleanUpReviewsAction());
     }, [dispatch, spotId]);
 
-    if (!allReviews) return null;
+    if (!allReviews || !allReviewsObj) return null;
 
     return (
         <div className="all-reviews-container">

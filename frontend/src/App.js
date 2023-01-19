@@ -7,6 +7,7 @@ import AllSpotsComponent from "./components/AllSpots";
 import SingleSpotDetails from "./components/SingleSpotDetails";
 import CreateSpotForm from "./components/CreateSpotForm";
 import EditSpotForm from "./components/EditSpotForm";
+import CreateReviewForm from "./components/CreateReviewForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ function App() {
           <Route exact path='/'>
             <AllSpotsComponent />
           </Route>
+          <Route path='/spots/:spotId/write-a-review'>
+            <CreateReviewForm />
+          </Route>
           <Route path='/spots/:spotId'>
             <SingleSpotDetails />
           </Route>
@@ -31,6 +35,9 @@ function App() {
           </Route>
           <Route path='/edit-spot/:spotId'>
             <EditSpotForm />
+          </Route>
+          <Route>
+            <h1>Page Not Found</h1>
           </Route>
         </Switch>
       )}
