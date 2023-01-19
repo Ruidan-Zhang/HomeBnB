@@ -56,7 +56,7 @@ const SingleSpotDetails = () => {
                         <button onClick={deleteSpotRedirection}>Delete this spot</button>
                     </div>
                     )}
-                    {foundSpot.ownerId !== currentUser.id && (
+                    {(currentUser && foundSpot.ownerId !== currentUser.id) && (
                     <div className="create-review-button">
                         <button onClick={createReviewRedirection}>Write a review!</button>
                     </div>
