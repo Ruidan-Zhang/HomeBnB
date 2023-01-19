@@ -15,8 +15,6 @@ function EditSpotForm() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
-  const [lat, setLat] = useState(100);
-  const [lng, setLng] = useState(200);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -30,8 +28,8 @@ function EditSpotForm() {
       city,
       state,
       country,
-      lat,
-      lng,
+      lat: 100,
+      lng: 200,
       name,
       description,
       price
@@ -42,88 +40,78 @@ function EditSpotForm() {
 
   return (
     <form onSubmit={handleSubmit} className='edit-spot-form'>
+      <h2>Edit this spot</h2>
       <label>
-        Name:
+        Name: {' '}
         <input
           type="text"
+          placeholder="Name of this spot"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
       </label>
       <label>
-        City:
+        City: {' '}
         <input
           type="text"
+          placeholder="Example: Seattle"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           required
         />
       </label>
       <label>
-        State:
+        State: {' '}
         <input
           type="text"
+          placeholder="Example: Washington"
           value={state}
           onChange={(e) => setState(e.target.value)}
           required
         />
       </label>
       <label>
-        Country:
+        Country: {' '}
         <input
           type="text"
+          placeholder="Example: United States"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
           required
         />
       </label>
       <label>
-        Address:
+        Address: {' '}
         <input
           type="text"
+          placeholder="Example: 123 Main St."
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           required
         />
       </label>
       <label>
-        Lat:
+        Description: {' '}
         <input
           type="text"
-          value={lat}
-          onChange={(e) => setLat(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Lng:
-        <input
-          type="text"
-          value={lng}
-          onChange={(e) => setLng(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Description:
-        <input
-          type="text"
+          placeholder="Describe this spot!"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
       </label>
       <label>
-      Price:
+      Price: $
         <input
-          type="text"
+          type="number"
+          placeholder="Price per night"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           required
         />
       </label>
-      <button type="submit">Edit This Spot</button>
+      <button type="submit">Submit</button>
     </form>
   );
 }
