@@ -41,66 +41,48 @@ function EditSpotForm() {
   return (
     <form onSubmit={handleSubmit} className='edit-spot-form'>
       <h2>Edit this spot</h2>
-      <label>
-        Name: {' '}
-        <input
-          type="text"
-          placeholder="Name of this spot"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        City: {' '}
-        <input
-          type="text"
-          placeholder="Example: Seattle"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        State: {' '}
-        <input
-          type="text"
-          placeholder="Example: Washington"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Country: {' '}
-        <input
-          type="text"
-          placeholder="Example: United States"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Address: {' '}
-        <input
-          type="text"
-          placeholder="Example: 123 Main St."
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Description: {' '}
-        <input
-          type="text"
-          placeholder="Describe this spot!"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-      </label>
+      <input
+        type="text"
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="City"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="State"
+        value={state}
+        onChange={(e) => setState(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Country"
+        value={country}
+        onChange={(e) => setCountry(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Address"
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Describe this spot:"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        required
+      />
       <label>
       Price: $
         <input
