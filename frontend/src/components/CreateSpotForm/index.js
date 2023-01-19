@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createSpotThunk } from "../../store/spots";
@@ -18,6 +18,23 @@ function CreateSpotForm() {
   const [url, setUrl] = useState('');
   const [preview, setPreview] = useState(true);
   const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    const newErrors = [];
+
+    if (name.length === 0) newErrors.push('Please enter a name for this spot.');
+    if (name.length > 49) newErrors.push('Name is too long.');
+    if (city.length === 0) newErrors.push('City is required.');
+    if (state.length === 0) newErrors.push('State is required.');
+    if (country.length === 0) newErrors.push('Country is required.');
+    if (address.length === 0) newErrors.push('Address is required.');
+    if (description.length === 0) newErrors.push('Description is required.');
+    if (url.length === 0) newErrors.push('Please provide an image for this spot.');
+    if (!price) newErrors.push('Price is required.');
+    if (price && price < 0) newErrors.push('Price must be greater than $0.');
+
+    setErrors(newErrors);
+  }, [name, city, state, country, address, description, url, price]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,6 +58,11 @@ function CreateSpotForm() {
   return (
     <form onSubmit={handleSubmit} className='create-spot-form'>
       <h2>Create your own spot!</h2>
+      {errors.length && (
+        <ul>
+          {errors.map(error => <li key={error}>{error}</li>)}
+        </ul>
+      )}
       <input
         type="text"
         placeholder="Name"
@@ -98,6 +120,7 @@ function CreateSpotForm() {
         <input
           type="number"
           placeholder="Price per night"
+          min='0'
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           required
