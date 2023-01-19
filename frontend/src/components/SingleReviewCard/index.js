@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deleteReviewThunk } from "../../store/reviews";
 import { loadSingleSpotThunk } from "../../store/single";
+import './SingleReviewCard.css';
 
 const SingleReviewCard = ({review, stars, user, reviewOwnerId, reviewId, spotId}) => {
     const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const SingleReviewCard = ({review, stars, user, reviewOwnerId, reviewId, spotId}
         <div className="single-review-card-container">
             <div className='single-review-header'>
                 <div className="single-review-reviewOwner">{user}</div>
-                <div className="single-review-star">{stars}</div>
+                {/* <div className="single-review-star">{stars}</div> */}
             </div>
             {currentUser.id === reviewOwnerId && (
                 <button onClick={deleteReviewHandler}>Delete This Review</button>
