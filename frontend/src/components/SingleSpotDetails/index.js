@@ -46,7 +46,7 @@ const SingleSpotDetails = () => {
 
     return (
         <div className="single-spot-details-page-container">
-            <h2>{foundSpot.name}</h2>
+            <h2 className="single-spot-name">{foundSpot.name}</h2>
             <div className="single-spot-header-container">
                 <h4 className="single-spot-header">
                     <i className="fa-solid fa-star"></i>{avgRatingFormat(foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews · {foundSpot.city}, {foundSpot.state}, {foundSpot.country}
@@ -66,7 +66,7 @@ const SingleSpotDetails = () => {
             <div className="single-spot-images">
                 {foundSpot.SpotImages && (
                     foundSpot.SpotImages.map(image => (
-                        <img src={image.url} alt={foundSpot.name} key={image.id}/>
+                        <img src={image.url} alt={foundSpot.name} key={image.id} style={{borderRadius: 11, width: 1130, height: 560}}/>
                     ))
                 )}
             </div>

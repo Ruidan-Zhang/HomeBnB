@@ -1,3 +1,25 @@
+.single-spot-details-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1135px;
+}
+
+.single-spot-name {
+    margin-right: auto;
+}
+
 .single-spot-header {
     display: flex;
+    width: 1130px;
+    font-size: 14px;
+}
+
+.edit-and-delete-spot-buttons {
+    margin-left: auto;
+}
+
+.create-review-button {
+    margin-left: auto;
 }
