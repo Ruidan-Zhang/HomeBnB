@@ -126,7 +126,9 @@ function CreateSpotForm() {
           required
         />
       </label>
-      <button type="submit">Create Spot</button>
+      <div className="create-spot-submit-button">
+        <button type="submit">Create Spot</button>
+      </div>
     </form>
   );
 }

@@ -1,3 +1,7 @@
 .single-review-card-container {
     margin: 10px;
 }
+
+.delete-review-button :hover {
+    cursor: pointer;
+}

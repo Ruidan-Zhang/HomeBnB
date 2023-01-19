@@ -16,3 +16,7 @@
     right: 0;
     gap: 20px;
 }
+
+.nav-bar-buttons :hover {
+    cursor: pointer;
+}

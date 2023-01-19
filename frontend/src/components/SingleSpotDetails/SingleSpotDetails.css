@@ -20,8 +20,16 @@
     margin-left: auto;
 }
 
+.edit-and-delete-spot-buttons :hover {
+    cursor: pointer;
+}
+
 .create-review-button {
     margin-left: auto;
+}
+
+.create-review-button :hover {
+    cursor: pointer;
 }
 
 .single-spot-description {
