@@ -52,7 +52,7 @@ const SingleSpotDetails = () => {
             <h2 className="single-spot-name">{foundSpot.name}</h2>
             <div className="single-spot-header-container">
                 <h4 className="single-spot-header">
-                    <i className="fa-solid fa-star"></i>{avgRatingFormat(foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews · {foundSpot.city}, {foundSpot.state}, {foundSpot.country}
+                    <i className="fa-solid fa-star"></i>{avgRatingFormat(+foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews · {foundSpot.city}, {foundSpot.state}, {foundSpot.country}
                     {(currentUser && foundSpot.ownerId === currentUser.id) && (
                     <div className="edit-and-delete-spot-buttons">
                         <button onClick={editFormRedirection}>Edit this spot</button>
@@ -82,7 +82,7 @@ const SingleSpotDetails = () => {
                 <p>{foundSpot.description}</p>
             </div>
             <div className="single-spot-reviews">
-                <h2><i className="fa-solid fa-star"></i>{avgRatingFormat(foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews</h2>
+                <h2><i className="fa-solid fa-star"></i>{avgRatingFormat(+foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews</h2>
                 <AllReviewsComponent spotId={spotId}/>
             </div>
         </div>
