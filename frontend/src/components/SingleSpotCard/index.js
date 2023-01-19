@@ -22,7 +22,7 @@ const SingleSpotCard = ({id, city, state, price, avgRating, previewImage}) => {
             <div className='single-spot-address-and-rating'>
                 <div className="single-spot-card-address">{city}, {state}</div>
                 <div className='single-spot-rating'>
-                    <i className="fa-solid fa-star"></i> {avgRatingFormat(avgRating)}
+                    <i className="fa-solid fa-star"></i> {avgRatingFormat(+avgRating)}
                 </div>
             </div>
             <div className="single-spot-card-price">${price} night</div>
