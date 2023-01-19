@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   padding: 13px;
-  /* border: green 5px solid; */
 }
 
 .single-spot-previewImage {
@@ -11,8 +10,14 @@
   border-radius: 10px;
 }
 
+.single-spot-card-price {
+  margin-top: 4px;
+}
+
 .single-spot-address-and-rating{
   display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
 }
 
 .single-spot-card-container :hover {

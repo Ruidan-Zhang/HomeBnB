@@ -1,5 +1,4 @@
 .all-spots-container {
-    /* border: pink 10px solid; */
     display: grid;
     grid-template-columns: repeat(5, 300px);
 }
