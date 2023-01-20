@@ -1,8 +1,31 @@
 .create-spot-form {
     display: flex;
     flex-direction: column;
+    width: 430px;
 }
 
-.create-spot-submit-button :hover {
+.create-spot-form-errors {
+    color: lightgray;
+    font-size: 13px;
+}
+
+.create-spot-inputs {
+    height: 45px;
+
+}
+
+.create-spot-submit-button-container {
+    padding-top: 19px;
+}
+
+.create-spot-submit-button-container :hover {
     cursor: pointer;
+}
+
+.create-spot-submit-button {
+    background-color: #ff385c;
+    color: white;
+    border-radius: 8px;
+    width: 430px;
+    height: 45px;
 }

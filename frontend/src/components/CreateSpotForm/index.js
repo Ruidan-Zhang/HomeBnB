@@ -57,20 +57,20 @@ function CreateSpotForm() {
 
   return (
     <form onSubmit={handleSubmit} className='create-spot-form'>
-      <h2>Create your own spot!</h2>
-      {errors.length && (
-        <ul>
+      <h2>Create your own spot</h2>
+        <ul className="create-spot-form-errors">
           {errors.map(error => <li key={error}>{error}</li>)}
         </ul>
-      )}
       <input
+        className="create-spot-inputs"
         type="text"
-        placeholder="Name"
+        placeholder="Spot Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
       />
       <input
+        className="create-spot-inputs"
         type="text"
         placeholder="City"
         value={city}
@@ -78,6 +78,7 @@ function CreateSpotForm() {
         required
       />
       <input
+        className="create-spot-inputs"
         type="text"
         placeholder="State"
         value={state}
@@ -85,6 +86,7 @@ function CreateSpotForm() {
         required
       />
       <input
+        className="create-spot-inputs"
         type="text"
         placeholder="Country"
         value={country}
@@ -93,41 +95,39 @@ function CreateSpotForm() {
       />
       <input
         type="text"
+        className="create-spot-inputs"
         placeholder="Address"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
         required
       />
       <input
+        className="create-spot-inputs"
         type="text"
-        placeholder="Describe this spot:"
+        placeholder="Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
       />
-      <label>
-        Image: {' '}
-        <input
-          type="url"
-          placeholder="https://example.com"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-      Price: $
-        <input
-          type="number"
-          placeholder="Price per night"
-          min='0'
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-      </label>
-      <div className="create-spot-submit-button">
-        <button type="submit">Create Spot</button>
+      <input
+        className="create-spot-inputs"
+        type="url"
+        placeholder="Image"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        required
+      />
+      <input
+        className="create-spot-inputs"
+        type="number"
+        placeholder="Price per night"
+        min='0'
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+        required
+      />
+      <div className="create-spot-submit-button-container">
+        <button className="create-spot-submit-button" type="submit">Create Spot</button>
       </div>
     </form>
   );
