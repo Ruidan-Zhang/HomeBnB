@@ -13,10 +13,19 @@
 
 .nav-bar-buttons {
     display: flex;
+    align-items: center;
     right: 0;
     gap: 20px;
 }
 
-.nav-bar-buttons :hover {
+.nav-bar-session-buttons {
+    display: flex;
+}
+
+.nav-bar-create-spot-button :hover {
+    cursor: pointer;
+}
+
+.nav-bar-session-buttons :hover {
     cursor: pointer;
 }
