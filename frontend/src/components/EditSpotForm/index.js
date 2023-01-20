@@ -58,12 +58,11 @@ function EditSpotForm() {
   return (
     <form onSubmit={handleSubmit} className='edit-spot-form'>
       <h2>Edit this spot</h2>
-      {errors.length && (
-        <ul>
+        <ul className="edit-spot-form-errors">
           {errors.map(error => <li key={error}>{error}</li>)}
         </ul>
-      )}
       <input
+        className="edit-spot-inputs"
         type="text"
         placeholder="Name"
         value={name}
@@ -71,6 +70,7 @@ function EditSpotForm() {
         required
       />
       <input
+        className="edit-spot-inputs"
         type="text"
         placeholder="City"
         value={city}
@@ -78,6 +78,7 @@ function EditSpotForm() {
         required
       />
       <input
+        className="edit-spot-inputs"
         type="text"
         placeholder="State"
         value={state}
@@ -85,6 +86,7 @@ function EditSpotForm() {
         required
       />
       <input
+        className="edit-spot-inputs"
         type="text"
         placeholder="Country"
         value={country}
@@ -92,6 +94,7 @@ function EditSpotForm() {
         required
       />
       <input
+        className="edit-spot-inputs"
         type="text"
         placeholder="Address"
         value={address}
@@ -99,25 +102,24 @@ function EditSpotForm() {
         required
       />
       <input
+        className="edit-spot-inputs"
         type="text"
         placeholder="Describe this spot:"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
       />
-      <label>
-      Price: $
-        <input
-          type="number"
-          min='0'
-          placeholder="Price per night"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-      </label>
-      <div className="edit-spot-submit-button">
-        <button type="submit">Submit</button>
+      <input
+        className="edit-spot-inputs"
+        type="number"
+        min='0'
+        placeholder="Price per night"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+        required
+      />
+      <div className="edit-spot-submit-button-container">
+        <button className="edit-spot-submit-button" type="submit">Submit</button>
       </div>
     </form>
   );

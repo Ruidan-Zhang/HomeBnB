@@ -31,66 +31,61 @@ function SignupFormModal() {
 
   return (
     <form onSubmit={handleSubmit} className='sign-up-form-container'>
-      <h1>Sign Up</h1>
+      <h3 className="sign-up-form-header">Sign Up</h3>
+      <h2 className="sign-up-form-title">Welcome to HomeBnB</h2>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      <label>
-        Email
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Username
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        First Name
-        <input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Last Name
-        <input
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Confirm Password
-        <input
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-      </label>
-      <div className="sign-up-submit-button">
-        <button type="submit">Sign Up</button>
+    <input
+      className="sign-up-form-inputs"
+      type="text"
+      placeholder="Email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      required
+    />
+    <input
+      className="sign-up-form-inputs"
+      type="text"
+      placeholder="Username"
+      value={username}
+      onChange={(e) => setUsername(e.target.value)}
+      required
+    />
+    <input
+      className="sign-up-form-inputs"
+      type="text"
+      value={firstName}
+      placeholder="First Name"
+      onChange={(e) => setFirstName(e.target.value)}
+      required
+    />
+    <input
+      className="sign-up-form-inputs"
+      type="text"
+      placeholder="Last Name"
+      value={lastName}
+      onChange={(e) => setLastName(e.target.value)}
+      required
+    />
+    <input
+      className="sign-up-form-inputs"
+      type="password"
+      placeholder="Password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      required
+    />
+    <input
+      className="sign-up-form-inputs"
+      type="password"
+      placeholder="Confirm Password"
+      value={confirmPassword}
+      onChange={(e) => setConfirmPassword(e.target.value)}
+      required
+    />
+      <div className="sign-up-submit-button-container">
+        <button className="sign-up-submit-button" type="submit">Sign Up</button>
       </div>
     </form>
   );

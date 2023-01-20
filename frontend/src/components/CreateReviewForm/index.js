@@ -40,14 +40,13 @@ function CreateReviewForm() {
 
   return (
     <form onSubmit={handleSubmit} className='create-review-form'>
-      <h2>Leave a review for this spot!</h2>
-      {errors.length && (
-        <ul>
+      <h2>Leave a review for this spot</h2>
+        <ul className="create-review-form-errors">
           {errors.map(error => <li key={error}>{error}</li>)}
         </ul>
-      )}
       Star:
       <input
+        className="create-review-form-star-input"
         type="number"
         min="1"
         max="5"
@@ -56,16 +55,19 @@ function CreateReviewForm() {
         onChange={(e) => setStars(e.target.value)}
         required
       />
-      Reviews:
-      <input
-        type="text"
-        placeholder="How did you like this place?"
-        value={review}
-        onChange={(e) => setReview(e.target.value)}
-        required
-      />
-      <div className="create-review-submit-button">
-        <button type="submit">Submit</button>
+      <div className="create-review-form-review-container">
+        Reviews:
+        <input
+          className="create-review-form-review-input"
+          type="text"
+          placeholder="How did you like this place?"
+          value={review}
+          onChange={(e) => setReview(e.target.value)}
+          required
+        />
+      </div>
+      <div className="create-review-submit-button-container">
+        <button className="create-review-submit-button" type="submit">Submit</button>
       </div>
     </form>
   );

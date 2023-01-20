@@ -1,8 +1,41 @@
 .create-review-form {
     display: flex;
     flex-direction: column;
+    width: 430px;
 }
 
-.create-review-submit-button :hover {
+.create-review-form-errors {
+    color: lightgray;
+    font-size: 13px;
+}
+
+.create-review-form-star-input {
+    height: 25px;
+}
+
+.create-review-form-review-container {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.create-review-form-review-input {
+    height: 45px;
+}
+
+.create-review-submit-button-container {
+    padding-top: 19px;
+}
+
+.create-review-submit-button-container :hover {
     cursor: pointer;
+}
+
+
+.create-review-submit-button {
+    background-color: #ff385c;
+    color: white;
+    border-radius: 8px;
+    width: 430px;
+    height: 45px;
 }
