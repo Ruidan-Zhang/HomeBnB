@@ -18,6 +18,8 @@
 
 .edit-and-delete-spot-buttons {
     margin-left: auto;
+    display: flex;
+    gap: 20px;
 }
 
 .edit-and-delete-spot-buttons :hover {

@@ -3,8 +3,40 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 460px;
 }
 
-.log-in-submit-button :hover {
+.log-in-form-header {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #eeeeee;
+    width: 430px;
+    height: 40px;
+}
+
+.log-in-form-title {
+    margin-right: 29%;
+}
+
+.log-in-form-inputs {
+    height: 45px;
+    width: 380px;
+}
+
+.log-in-submit-button-container {
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+.log-in-submit-button-container :hover {
     cursor: pointer;
+}
+
+.log-in-submit-button {
+    background-color: #ff385c;
+    color: white;
+    font-size: 15px;
+    border-radius: 8px;
+    width: 390px;
+    height: 45px;
 }
