@@ -11,6 +11,12 @@
     justify-content: space-between;
 }
 
+.home-logo {
+    margin-top: 5px;
+    height: 110px;
+    width: 100px;
+}
+
 .nav-bar-buttons {
     display: flex;
     align-items: center;
