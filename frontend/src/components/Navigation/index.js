@@ -18,10 +18,18 @@ function Navigation({ isLoaded }){
     <div className='navigation-bar'>
       <NavLink exact to="/">Home</NavLink>
       <div className='nav-bar-buttons'>
-        <button onClick={createFormDirection}>Create A Spot</button>
-        {isLoaded && (
-          <ProfileButton user={sessionUser} />
+        {sessionUser ? (
+          <div className='nav-bar-create-spot-button'>
+            <button onClick={createFormDirection}>Create A Spot</button>
+          </div>
+        ) : (
+          <h4>Log in to create a spot</h4>
         )}
+        <div className='nav-bar-session-buttons'>
+          {isLoaded && (
+            <ProfileButton user={sessionUser} />
+          )}
+        </div>
       </div>
     </div>
   );
