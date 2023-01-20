@@ -26,6 +26,7 @@ const AllReviewsComponent = ({ spotId }) => {
                 reviewOwnerId={singleReview.User.id}
                 reviewId={singleReview.id}
                 spotId={spotId}
+                time={singleReview.createdAt}
                 />
             ))}
         </div>
