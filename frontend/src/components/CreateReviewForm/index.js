@@ -18,9 +18,9 @@ function CreateReviewForm() {
     const newErrors = [];
 
     if (!stars) newErrors.push('Star is required.');
-    if (stars && stars % 2 !== 0) newErrors.push('Star must be an integer.');
     if (stars && stars < 1) newErrors.push('Star must be greater than 1.');
     if (stars && stars > 5) newErrors.push('Star must be less than 5.');
+    if (stars && !Number.isInteger(+stars)) newErrors.push('Star must be an integer.');
     if (review.length === 0) newErrors.push('Please leave a review for this spot.');
 
     setErrors(newErrors);
