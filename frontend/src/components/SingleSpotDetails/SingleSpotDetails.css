@@ -37,3 +37,13 @@
 .single-spot-description {
     margin-right: auto;
 }
+
+.single-spot-owner-and-price {
+    display: flex;
+    justify-content: space-between;
+}
+
+.single-spot-reviews-header {
+    display: flex;
+    align-items: center;
+}

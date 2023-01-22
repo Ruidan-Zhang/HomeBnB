@@ -59,13 +59,6 @@ const SingleSpotDetails = () => {
                         <button onClick={deleteSpotRedirection}>Delete this spot</button>
                     </div>
                     )}
-                    {(currentUser && foundSpot.ownerId !== currentUser.id && (
-                        !allReviews.find(review => review.userId === currentUser.id)
-                    )) && (
-                    <div className="create-review-button">
-                        <button onClick={createReviewRedirection}>Write a review!</button>
-                    </div>
-                    )}
                 </h4>
             </div>
             <div className="single-spot-images">
@@ -76,13 +69,25 @@ const SingleSpotDetails = () => {
                 )}
             </div>
             <div className="single-spot-description">
-                {foundSpot.Owner && (
-                    <h2>Hosted by {foundSpot.Owner.firstName}</h2>
-                )}
+                <div className="single-spot-owner-and-price">
+                    {foundSpot.Owner && (
+                        <h2>Hosted by {foundSpot.Owner.firstName}</h2>
+                    )}
+                    <h2>${foundSpot.price} night</h2>
+                </div>
                 <p>{foundSpot.description}</p>
             </div>
-            <div className="single-spot-reviews">
-                <h2><i className="fa-solid fa-star"></i>{avgRatingFormat(+foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews</h2>
+            <div className="single-spot-reviews-container">
+                <div className="single-spot-reviews-header">
+                    <h2><i className="fa-solid fa-star"></i>{avgRatingFormat(+foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews</h2>
+                    {(currentUser && foundSpot.ownerId !== currentUser.id && (
+                            !allReviews.find(review => review.userId === currentUser.id)
+                    )) && (
+                    <div className="create-review-button">
+                        <button onClick={createReviewRedirection}>Write a review!</button>
+                    </div>
+                    )}
+                </div>
                 <AllReviewsComponent spotId={spotId}/>
             </div>
         </div>
