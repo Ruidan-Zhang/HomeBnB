@@ -34,9 +34,9 @@ const SingleSpotDetails = () => {
         history.push(`/edit-spot/${spotId}`);
     };
 
-    const deleteSpotRedirection = (e) => {
+    const deleteSpotRedirection = async (e) => {
         e.preventDefault();
-        dispatch(deleteSpotThunk(foundSpot.id));
+        await dispatch(deleteSpotThunk(foundSpot.id));
         history.push(`/`);
     };
 
