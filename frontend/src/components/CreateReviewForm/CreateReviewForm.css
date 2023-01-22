@@ -5,8 +5,7 @@
 }
 
 .create-review-form-errors {
-    color: lightgray;
-    font-size: 13px;
+    color: red;
 }
 
 .create-review-form-star-input {
