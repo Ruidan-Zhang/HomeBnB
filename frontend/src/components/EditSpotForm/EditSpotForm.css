@@ -5,8 +5,7 @@
 }
 
 .edit-spot-form-errors {
-    color: lightgray;
-    font-size: 13px;
+    color: red;
 }
 
 .edit-spot-inputs {

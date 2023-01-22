@@ -29,7 +29,7 @@ function LoginFormModal() {
     <form onSubmit={handleSubmit} className='log-in-form-container'>
       <h3 className="log-in-form-header">Log In</h3>
       <h2 className="log-in-form-title">Welcome to HomeBnB</h2>
-      <ul>
+      <ul className="log-in-form-errors">
         {errors.map((error, idx) => (
           <li key={idx}>{error}</li>
         ))}

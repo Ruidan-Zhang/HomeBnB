@@ -23,6 +23,10 @@
     width: 380px;
 }
 
+.log-in-form-errors {
+    color: red;
+}
+
 .log-in-submit-button-container {
     padding-top: 30px;
     padding-bottom: 40px;

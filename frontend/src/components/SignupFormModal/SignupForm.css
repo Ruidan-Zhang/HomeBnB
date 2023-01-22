@@ -23,6 +23,10 @@
     width: 380px;
 }
 
+.sign-up-form-errors {
+    color: red;
+}
+
 .sign-up-submit-button-container {
     padding-top: 30px;
     padding-bottom: 60px;
