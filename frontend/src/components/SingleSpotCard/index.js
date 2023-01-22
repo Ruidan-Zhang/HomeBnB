@@ -10,8 +10,8 @@ const SingleSpotCard = ({id, city, state, price, avgRating, previewImage}) => {
     };
 
     const avgRatingFormat = (rating) => {
-        if (typeof rating === 'number') return rating.toFixed(2);
-        else return rating;
+        if (rating && typeof rating === 'number') return rating.toFixed(2);
+        else if (!rating || typeof rating !== 'number') return "No ratings yet";
     };
 
     if (!previewImage) return null;
