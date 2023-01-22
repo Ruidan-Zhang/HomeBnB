@@ -11,13 +11,13 @@ function EditSpotForm() {
   const { spotId } = useParams();
   let foundSpot = useSelector(state => state.spots[spotId]);
 
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [address, setAddress] = useState(foundSpot.address);
+  const [city, setCity] = useState(foundSpot.city);
+  const [state, setState] = useState(foundSpot.state);
+  const [country, setCountry] = useState(foundSpot.country);
+  const [name, setName] = useState(foundSpot.name);
+  const [description, setDescription] = useState(foundSpot.description);
+  const [price, setPrice] = useState(foundSpot.price);
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {

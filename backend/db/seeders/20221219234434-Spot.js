@@ -11,7 +11,7 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         ownerId: 1,
-        address: "first spot address",
+        address: "Olalla, Washington",
         city: "Olalla",
         state: "Washington",
         country: "United States",
@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         ownerId: 2,
-        address: "second spot address",
+        address: "Leavenworth, Washington",
         city: "Leavenworth",
         state: "Washington",
         country: "United States",
@@ -35,7 +35,7 @@ module.exports = {
       },
       {
         ownerId: 3,
-        address: "third spot address",
+        address: "Bass Lake, California",
         city: "Bass Lake",
         state: "California",
         country: "United States",
@@ -47,7 +47,7 @@ module.exports = {
       },
       {
         ownerId: 4,
-        address: "fourth spot address",
+        address: "Waterloo, South Carolina",
         city: "Waterloo",
         state: "South Carolina",
         country: "United States",
@@ -59,7 +59,7 @@ module.exports = {
       },
       {
         ownerId: 5,
-        address: "fifth spot address",
+        address: "Orlando, Florida",
         city: "Orlando",
         state: "Florida",
         country: "United States",
@@ -71,7 +71,7 @@ module.exports = {
       },
       {
         ownerId: 6,
-        address: "sixth spot address",
+        address: "Cocoa Beach, Florida",
         city: "Cocoa Beach",
         state: "Florida",
         country: "United States",
@@ -83,7 +83,7 @@ module.exports = {
       },
       {
         ownerId: 7,
-        address: "seventh spot address",
+        address: "Hopatcong, New Jersey",
         city: "Hopatcong",
         state: "New Jersey",
         country: "United States",
@@ -95,7 +95,7 @@ module.exports = {
       },
       {
         ownerId: 1,
-        address: "eighth spot address",
+        address: "Lake Harmony, Pennsylvania",
         city: "Lake Harmony",
         state: "Pennsylvania",
         country: "United States",
