@@ -16,7 +16,7 @@ li {
     border-radius: 7px;
     padding: 11px;
     position: absolute;
-    right: 91px;
+    right: auto;
 }
 
 .navigation-bar {
@@ -81,7 +81,7 @@ li {
     border-radius: 7px;
     padding: 10px;
     position: absolute;
-    right: 91px;
+    right: auto;
 }
 
 .menu-buttons-container {
