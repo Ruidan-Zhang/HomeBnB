@@ -4,7 +4,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
-import homeLogo from '../../assets/title.png';
+import homeLogo from '../../assets/logo.png';
 
 function Navigation({ isLoaded }){
   const history = useHistory();
@@ -17,8 +17,11 @@ function Navigation({ isLoaded }){
 
   return (
     <div className='navigation-bar'>
-      <NavLink exact to="/">
-        <img className='home-logo' src={homeLogo} alt="home-logo"/>
+      <NavLink exact to="/" style={{ textDecoration: 'none' }}>
+        <div className='home-page-logo-container'>
+          <img className='home-logo' src={homeLogo} alt="home-logo"/>
+          <h3 className='home-logo-name'>Homebnb</h3>
+        </div>
       </NavLink>
       <div className='nav-bar-buttons'>
         {sessionUser ? (
