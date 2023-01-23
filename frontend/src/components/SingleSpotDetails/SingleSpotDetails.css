@@ -16,22 +16,51 @@
     font-size: 14px;
 }
 
-.edit-and-delete-spot-buttons {
+.edit-and-delete-spot-buttons-container {
     margin-left: auto;
     display: flex;
     gap: 20px;
 }
 
-.edit-and-delete-spot-buttons :hover {
-    cursor: pointer;
+.edit-spot-button {
+    background: none;
+    border: lightgray solid 1px;
+    padding: 5px;
+    border-radius: 5px;
+    color: rgb(24, 23, 23);
+    font-size: 13px;
 }
 
-.create-review-button {
+.delete-spot-button {
+    background: none;
+    border: lightgray solid 1px;
+    padding: 5px;
+    border-radius: 5px;
+    color: rgb(24, 23, 23);
+    font-size: 13px;
+}
+
+.edit-and-delete-spot-buttons-container :hover {
+    cursor: pointer;
+    box-shadow: 2px 2px 2px rgb(81, 81, 81);
+}
+
+.create-review-button-container {
     margin-left: auto;
 }
 
-.create-review-button :hover {
+.create-review-button-container :hover {
     cursor: pointer;
+    box-shadow: 2px 2px 2px rgb(81, 81, 81);
+}
+
+.create-review-button {
+    background: none;
+    border: lightgray solid 1px;
+    padding: 5px;
+    border-radius: 5px;
+    color: rgb(24, 23, 23);
+    font-size: 13px;
 }
 
 .single-spot-description {

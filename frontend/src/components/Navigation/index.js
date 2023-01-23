@@ -20,18 +20,18 @@ function Navigation({ isLoaded }){
       <NavLink exact to="/" style={{ textDecoration: 'none' }}>
         <div className='home-page-logo-container'>
           <img className='home-logo' src={homeLogo} alt="home-logo"/>
-          <h3 className='home-logo-name'>Homebnb</h3>
+          <h2 className='home-logo-name'>Homebnb</h2>
         </div>
       </NavLink>
       <div className='nav-bar-buttons'>
         {sessionUser ? (
-          <div className='nav-bar-create-spot-button'>
-            <button onClick={createFormDirection}>Create A Spot</button>
+          <div className='nav-bar-create-spot-button-container'>
+            <button className='nav-bar-create-spot-button' onClick={createFormDirection}>Create A Spot</button>
           </div>
         ) : (
           <h4>Log in to create a spot</h4>
         )}
-        <div className='nav-bar-session-buttons'>
+        <div className='nav-bar-menu-container'>
           {isLoaded && (
             <ProfileButton user={sessionUser} />
           )}

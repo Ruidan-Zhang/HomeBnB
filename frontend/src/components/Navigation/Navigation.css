@@ -6,7 +6,6 @@
     display: flex;
     border-bottom: 1px solid #eeeeee;
     width: 100%;
-    height: 80px;
     align-items: center;
     justify-content: space-between;
 }
@@ -14,20 +13,18 @@
 .home-page-logo-container {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    gap: 5px;
+    align-items: center;
+    gap: 8px;
     margin-left: 14px;
 }
 
 .home-logo {
-    margin-top: 10px;
-    height: 50px;
-    width: 50px;
+    height: 45px;
+    width: 45px;
 }
 
 .home-logo-name {
     color: #ff385c;
-    padding-top: 15px;
 }
 
 .nav-bar-buttons {
@@ -39,12 +36,43 @@
 
 .nav-bar-session-buttons {
     display: flex;
+    align-items: center;
+    border: lightgrey solid 1px;
+    padding: 16px;
+    gap: 10px;
+    border-radius: 25px;
+    background: none;
 }
 
-.nav-bar-create-spot-button :hover {
+.menu-button {
+    background: none;
+    border: lightgray solid 1px;
+    padding: 5px;
+    border-radius: 5px;
+    color: rgb(24, 23, 23);
+    font-size: 12px;
+}
+
+.menu-buttons-container :hover {
     cursor: pointer;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 2px 2px 2px rgb(81, 81, 81);
 }
 
-.nav-bar-session-buttons :hover {
+.nav-bar-create-spot-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+}
+
+.nav-bar-create-spot-button-container :hover {
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 2px 2px 2px rgb(81, 81, 81);
+}
+
+.nav-bar-menu-container :hover {
     cursor: pointer;
 }
