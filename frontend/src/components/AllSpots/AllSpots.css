@@ -22,7 +22,7 @@
     }
 }
 
-@media (min-width: 1151px) and (max-width: 1450px) {
+@media (min-width: 1151px) and (max-width: 1600px) {
     .all-spots-container {
         grid-template-columns: repeat(4, 1fr);
     }
