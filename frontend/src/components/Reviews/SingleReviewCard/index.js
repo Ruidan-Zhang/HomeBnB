@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteReviewThunk } from "../../../store/reviews";
-import { loadSingleSpotThunk } from "../../../store/single";
+import DeleteReviewConfirmation from "../DeleteReviews";
+import OpenModalButton from "../../OpenModalButton";
 import './SingleReviewCard.css';
 
 const SingleReviewCard = ({review, user, reviewOwnerId, reviewId, spotId, time}) => {
@@ -14,12 +14,6 @@ const SingleReviewCard = ({review, user, reviewOwnerId, reviewId, spotId, time})
         }
     };
 
-    const deleteReviewHandler = async (e) => {
-        e.preventDefault();
-        await dispatch(deleteReviewThunk(reviewId));
-        dispatch(loadSingleSpotThunk(spotId))
-    };
-
     if (!review) return null;
 
     return (
@@ -28,7 +22,11 @@ const SingleReviewCard = ({review, user, reviewOwnerId, reviewId, spotId, time})
                 <div className="single-review-reviewOwner">{user}</div>
                 <div className="delete-review-button-container">
                 {(currentUser && currentUser.id === reviewOwnerId) && (
-                    <button className="delete-review-button" onClick={deleteReviewHandler}>Delete this review</button>
+                    <OpenModalButton
+                        buttonText='Delete'
+                        modalComponent={<DeleteReviewConfirmation reviewId={reviewId} spotId={spotId}/>}
+                        className='delete-review-button'
+                    />
                 )}
                 </div>
             </div>

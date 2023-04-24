@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { loadSingleSpotThunk } from "../../../store/single";
-import { deleteSpotThunk } from "../../../store/spots";
 import { cleanUpSingleSpotAction } from "../../../store/single";
 import AllReviewsComponent from "../../Reviews/AllReviews";
 import EditSpotForm from "../EditSpotForm";
 import CreateReviewForm from "../../Reviews/CreateReviewForm";
 import OpenModalButton from "../../OpenModalButton";
+import DeleteSpotConfirmation from "../DeleteSpots";
 import './SingleSpotDetails.css';
 
 const SingleSpotDetails = () => {
@@ -32,12 +32,6 @@ const SingleSpotDetails = () => {
         return () => dispatch(cleanUpSingleSpotAction());
     }, [dispatch, spotId]);
 
-    const deleteSpotRedirection = async (e) => {
-        e.preventDefault();
-        await dispatch(deleteSpotThunk(foundSpot.id));
-        history.push(`/`);
-    };
-
     if (!foundSpot) return null;
 
     return (
@@ -49,13 +43,19 @@ const SingleSpotDetails = () => {
                     {(currentUser && foundSpot.ownerId === currentUser.id) && (
                     <div className="edit-and-delete-spot-buttons-container">
                         <div>
-                        <OpenModalButton
-                            buttonText='Edit'
-                            modalComponent={<EditSpotForm spotId={spotId}/>}
-                            className='edit-spot-button'
-                        />
+                            <OpenModalButton
+                                buttonText='Edit'
+                                modalComponent={<EditSpotForm spotId={spotId}/>}
+                                className='edit-spot-button'
+                            />
                         </div>
-                        <button className="delete-spot-button" onClick={deleteSpotRedirection}>Delete</button>
+                        <div>
+                            <OpenModalButton
+                                buttonText='Delete'
+                                modalComponent={<DeleteSpotConfirmation spotId={spotId}/>}
+                                className='delete-spot-button'
+                            />
+                        </div>
                     </div>
                     )}
                 </h4>
