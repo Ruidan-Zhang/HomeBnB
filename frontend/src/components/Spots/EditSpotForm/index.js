@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { editSpotThunk } from "../../../store/spots";
+import { loadSingleSpotThunk } from "../../../store/single";
 import { useModal } from "../../../context/Modal";
 import './EditSpotForm.css';
 
@@ -10,7 +11,7 @@ function EditSpotForm({ spotId }) {
   const history = useHistory();
   const { closeModal } = useModal();
 
-  let foundSpot = useSelector(state => state.spots[spotId]);
+  let foundSpot = useSelector(state => state.single);
 
   const [address, setAddress] = useState(foundSpot.address);
   const [city, setCity] = useState(foundSpot.city);
@@ -30,7 +31,7 @@ function EditSpotForm({ spotId }) {
     setErrors(newErrors);
   }, [name, price]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     foundSpot = {
@@ -45,7 +46,9 @@ function EditSpotForm({ spotId }) {
       description,
       price
     };
-    dispatch(editSpotThunk(foundSpot));
+
+    await dispatch(editSpotThunk(foundSpot));
+    await dispatch(loadSingleSpotThunk(spotId));
 
     closeModal();
     history.push(`/spots/${spotId}`);

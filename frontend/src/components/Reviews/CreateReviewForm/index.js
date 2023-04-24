@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createReviewThunk } from "../../../store/reviews";
+import { loadAllReviewsThunk } from "../../../store/reviews";
 import { useModal } from "../../../context/Modal";
 import './CreateReviewForm.css';
 
@@ -33,6 +34,7 @@ function CreateReviewForm({ spotId }) {
     };
 
     await dispatch(createReviewThunk(spotId, newReview));
+    await dispatch(loadAllReviewsThunk(spotId));
 
     closeModal();
     history.push(`/spots/${spotId}`);
