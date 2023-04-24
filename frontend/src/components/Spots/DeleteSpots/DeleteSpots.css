@@ -1,0 +1,56 @@
+.delete-post-confirmation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 300px;
+}
+
+.delete-post-title {
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.delete-post-body {
+    word-break: keep-all;
+    font-weight: 600;
+    font-size: smaller;
+    color: #717171;
+    margin-bottom: 30px;
+}
+
+.delete-post-buttons-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.delete-post-confirmation-button {
+    cursor: pointer;
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    width: 65px;
+    height: 35px;
+    border-radius: 20px;
+    font-size: 15px;
+}
+
+.delete-post-confirmation-button:hover {
+    background-color: #e02043;
+}
+
+.delete-post-cancel-button {
+    cursor: pointer;
+    background-color: #ebebeb;
+    color: #a4a4a4;
+    border: none;
+    width: 65px;
+    height: 35px;
+    border-radius: 20px;
+    font-size: 15px;
+}
+
+.delete-post-cancel-button:hover {
+    background-color: #dddddd;
+}

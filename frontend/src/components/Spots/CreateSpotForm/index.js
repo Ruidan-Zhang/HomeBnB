@@ -24,7 +24,7 @@ function CreateSpotForm() {
   useEffect(() => {
     const newErrors = [];
 
-    if (name.length > 49) newErrors.push('Name is too long.');
+    if (name.length > 50) newErrors.push('Name is too long (50).');
     if (price && price < 0) newErrors.push('Price must be greater than $0.');
 
     setErrors(newErrors);
@@ -128,7 +128,11 @@ function CreateSpotForm() {
         ))}
       </div>
       <div className="create-spot-submit-button-container">
-        <button className="create-spot-submit-button" type="submit">Create Spot</button>
+        {errors.length === 0 ? (
+          <button className="create-spot-submit-button" type="submit">Create Spot</button>
+        ) : (
+          <button className="create-spot-submit-button-disabled" type="submit" disabled={true}>Create Spot</button>
+        )}
       </div>
     </form>
   );

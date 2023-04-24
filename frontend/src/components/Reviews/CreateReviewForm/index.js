@@ -42,7 +42,7 @@ function CreateReviewForm({ spotId }) {
 
   return (
     <form onSubmit={handleSubmit} className='create-review-form'>
-      <h2>Leave a review for this spot</h2>
+      <h2>Write a review</h2>
       Star:
       <input
         className="create-review-form-star-input"
@@ -74,7 +74,11 @@ function CreateReviewForm({ spotId }) {
         ))}
       </div>
       <div className="create-review-submit-button-container">
-        <button className="create-review-submit-button" type="submit">Submit</button>
+        {errors.length === 0 ? (
+          <button className="create-review-submit-button" type="submit">Submit</button>
+        ) : (
+          <button className="create-review-submit-button-disabled" type="submit" disabled={true}>Submit</button>
+        )}
       </div>
     </form>
   );

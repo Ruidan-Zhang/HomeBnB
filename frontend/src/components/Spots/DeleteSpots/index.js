@@ -3,6 +3,7 @@ import React from "react";
 import { deleteSpotThunk } from '../../../store/spots';
 import { useHistory } from 'react-router-dom';
 import { useModal } from "../../../context/Modal";
+import './DeleteSpots.css';
 
 const DeleteSpotConfirmation = ({ spotId }) => {
     const dispatch = useDispatch();

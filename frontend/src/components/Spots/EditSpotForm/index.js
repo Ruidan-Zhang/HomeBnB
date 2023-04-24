@@ -123,7 +123,11 @@ function EditSpotForm({ spotId }) {
         ))}
       </div>
       <div className="edit-spot-submit-button-container">
-        <button className="edit-spot-submit-button" type="submit">Submit</button>
+        {errors.length === 0 ? (
+          <button className="edit-spot-submit-button" type="submit">Save</button>
+        ) : (
+          <button className="edit-spot-submit-button-disabled" type="submit" disabled={true}>Save</button>
+        )}
       </div>
     </form>
   );
