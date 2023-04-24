@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { loadSingleSpotThunk } from "../../store/single";
-import { deleteSpotThunk } from "../../store/spots";
-import { cleanUpSingleSpotAction } from "../../store/single";
-import AllReviewsComponent from "../AllReviews";
+import { loadSingleSpotThunk } from "../../../store/single";
+import { deleteSpotThunk } from "../../../store/spots";
+import { cleanUpSingleSpotAction } from "../../../store/single";
+import AllReviewsComponent from "../../Reviews/AllReviews";
+import EditSpotForm from "../EditSpotForm";
+import CreateReviewForm from "../../Reviews/CreateReviewForm";
+import OpenModalButton from "../../OpenModalButton";
 import './SingleSpotDetails.css';
 
 const SingleSpotDetails = () => {
@@ -29,20 +32,10 @@ const SingleSpotDetails = () => {
         return () => dispatch(cleanUpSingleSpotAction());
     }, [dispatch, spotId]);
 
-    const editFormRedirection = (e) => {
-        e.preventDefault();
-        history.push(`/edit-spot/${spotId}`);
-    };
-
     const deleteSpotRedirection = async (e) => {
         e.preventDefault();
         await dispatch(deleteSpotThunk(foundSpot.id));
         history.push(`/`);
-    };
-
-    const createReviewRedirection = (e) => {
-        e.preventDefault();
-        history.push(`/spots/${spotId}/write-a-review`);
     };
 
     if (!foundSpot) return null;
@@ -55,8 +48,14 @@ const SingleSpotDetails = () => {
                     <i className="fa-solid fa-star"></i>{avgRatingFormat(+foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews · {foundSpot.city}, {foundSpot.state}, {foundSpot.country}
                     {(currentUser && foundSpot.ownerId === currentUser.id) && (
                     <div className="edit-and-delete-spot-buttons-container">
-                        <button className="edit-spot-button" onClick={editFormRedirection}>Edit this spot</button>
-                        <button className="delete-spot-button" onClick={deleteSpotRedirection}>Delete this spot</button>
+                        <div>
+                        <OpenModalButton
+                            buttonText='Edit'
+                            modalComponent={<EditSpotForm spotId={spotId}/>}
+                            className='edit-spot-button'
+                        />
+                        </div>
+                        <button className="delete-spot-button" onClick={deleteSpotRedirection}>Delete</button>
                     </div>
                     )}
                 </h4>
@@ -84,7 +83,11 @@ const SingleSpotDetails = () => {
                             !allReviews.find(review => review.userId === currentUser.id)
                     )) && (
                     <div className="create-review-button-container">
-                        <button className="create-review-button" onClick={createReviewRedirection}>Write a review!</button>
+                        <OpenModalButton
+                            buttonText='Write a review!'
+                            modalComponent={<CreateReviewForm spotId={spotId}/>}
+                            className='create-review-button'
+                        />
                     </div>
                     )}
                 </div>

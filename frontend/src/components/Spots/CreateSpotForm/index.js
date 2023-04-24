@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createSpotThunk } from "../../store/spots";
+import { createSpotThunk } from "../../../store/spots";
+import { useModal } from "../../../context/Modal";
 import './CreateSpotForm.css';
 
 function CreateSpotForm() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { closeModal } = useModal();
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -22,19 +24,11 @@ function CreateSpotForm() {
   useEffect(() => {
     const newErrors = [];
 
-    if (name.length === 0) newErrors.push('Please enter a name for this spot.');
     if (name.length > 49) newErrors.push('Name is too long.');
-    if (city.length === 0) newErrors.push('City is required.');
-    if (state.length === 0) newErrors.push('State is required.');
-    if (country.length === 0) newErrors.push('Country is required.');
-    if (address.length === 0) newErrors.push('Address is required.');
-    if (description.length === 0) newErrors.push('Description is required.');
-    if (url.length === 0) newErrors.push('Please provide an image for this spot.');
-    if (!price) newErrors.push('Price is required.');
     if (price && price < 0) newErrors.push('Price must be greater than $0.');
 
     setErrors(newErrors);
-  }, [name, city, state, country, address, description, url, price]);
+  }, [name, price]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,15 +46,14 @@ function CreateSpotForm() {
     };
 
     const {createdSpot} = await dispatch(createSpotThunk(newSpot, url, preview));
+
+    closeModal();
     history.push(`/spots/${createdSpot.id}`);
   };
 
   return (
     <form onSubmit={handleSubmit} className='create-spot-form'>
       <h2>Create your own spot</h2>
-        <ul className="create-spot-form-errors">
-          {errors.map(error => <li key={error}>{error}</li>)}
-        </ul>
       <input
         className="create-spot-inputs"
         type="text"
@@ -126,6 +119,14 @@ function CreateSpotForm() {
         onChange={(e) => setPrice(e.target.value)}
         required
       />
+      <div className="create-spot-form-errors">
+        {errors.map((error) => (
+          <div>
+            <i className="fa-solid fa-ban"></i>{' '}
+            {error}
+          </div>
+        ))}
+      </div>
       <div className="create-spot-submit-button-container">
         <button className="create-spot-submit-button" type="submit">Create Spot</button>
       </div>

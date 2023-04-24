@@ -3,17 +3,14 @@ import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import './Navigation.css';
+import CreateSpotForm from '../Spots/CreateSpotForm';
+import OpenModalButton from '../OpenModalButton';
 import homeLogo from '../../assets/logo.png';
+import './Navigation.css';
 
 function Navigation({ isLoaded }){
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
-
-  const createFormDirection = (e) => {
-    e.preventDefault();
-    history.push('/create-spot');
-  }
 
   return (
     <div className='navigation-bar'>
@@ -26,7 +23,11 @@ function Navigation({ isLoaded }){
       <div className='nav-bar-buttons'>
         {sessionUser ? (
           <div className='nav-bar-create-spot-button-container'>
-            <button className='nav-bar-create-spot-button' onClick={createFormDirection}>Create A Spot</button>
+            <OpenModalButton
+              buttonText='Create A Spot'
+              modalComponent={<CreateSpotForm />}
+              className='nav-bar-create-spot-button'
+            />
           </div>
         ) : (
           <h4>Log in to create a spot</h4>

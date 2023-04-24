@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteReviewThunk } from "../../store/reviews";
-import { loadSingleSpotThunk } from "../../store/single";
+import { deleteReviewThunk } from "../../../store/reviews";
+import { loadSingleSpotThunk } from "../../../store/single";
 import './SingleReviewCard.css';
 
 const SingleReviewCard = ({review, user, reviewOwnerId, reviewId, spotId, time}) => {
