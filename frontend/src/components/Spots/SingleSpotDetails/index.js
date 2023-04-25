@@ -26,6 +26,7 @@ const SingleSpotDetails = () => {
 
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [errors, setErrors] = useState([]);
 
     const today = new Date().toISOString().split('T')[0];
 
@@ -41,6 +42,7 @@ const SingleSpotDetails = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors();
 
         const newBooking = {
             spotId: foundSpot.id,
@@ -49,13 +51,27 @@ const SingleSpotDetails = () => {
             endDate
         };
 
-        await dispatch(createBookingThunk(spotId, newBooking));
-        await dispatch(getMyBookingsThunk());
-        history.push('/my-bookings');
+        const createdBooking = await dispatch(createBookingThunk(spotId, newBooking))
+            .catch (async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(Object.values(data.errors));
+            })
+
+        if (createdBooking) {
+            dispatch(getMyBookingsThunk());
+            history.push('/my-bookings');
+        }
     };
 
     const createBookingForm = (
         <form onSubmit={handleSubmit} className='create-booking-form'>
+            {errors && (
+                <div>
+                    {errors.map((error, idx) => (
+                        <li key={idx}>{error}</li>
+                    ))}
+                </div>
+            )}
             <input
                 type="date"
                 className="create-booking-form-input"

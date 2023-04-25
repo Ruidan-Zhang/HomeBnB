@@ -91,34 +91,30 @@ export const deleteBookingThunk = (bookingId) => async dispatch => {
 };
 
 //bookings reducer
-const initialState = {
-    userBookings: {},
-    spotBookings: {}
-};
+const initialState = {};
 
 const bookingsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_MY_BOOKINGS: {
             const newState = { ...state };
             action.bookings.Bookings.forEach(booking => {
-                newState.userBookings[booking.id] = booking;
+                newState[booking.id] = booking;
             });
             return newState;
         };
         case CREATE_BOOKING: {
             const newState = { ...state };
-            newState.userBookings[action.newBooking.id] = action.newBooking;
-            console.log(action)
+            newState[action.newBooking.id] = action.newBooking;
             return newState;
         };
         case EDIT_BOOKING: {
             const newState = { ...state };
-            newState.userBookings[action.updatedBooking.id] = action.updatedBooking;
+            newState[action.updatedBooking.id] = action.updatedBooking;
             return newState;
         };
         case DELETE_BOOKING: {
             const newState = { ...state };
-            delete newState.userBookings[action.badBookingId];
+            delete newState[action.badBookingId];
             return newState;
         };
         default:

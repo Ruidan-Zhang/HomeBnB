@@ -5,8 +5,7 @@ import { getMyBookingsThunk } from "../../../store/bookings";
 
 const AllBookingsComponent = () => {
     const dispatch = useDispatch();
-    const allBookingsState = useSelector(state => state.bookings);
-    const allBookingsObj = allBookingsState.userBookings;
+    const allBookingsObj = useSelector(state => state.bookings)
     const allBookings = Object.values(allBookingsObj);
 
     useEffect(() => {
@@ -19,7 +18,7 @@ const AllBookingsComponent = () => {
         <div className="all-bookings-container">
             {allBookings.map((booking) => (
                 <div>
-                    {booking.Spot.name}
+                    {booking.Spot?.name}
                     {booking.startDate} - {booking.endDate}
                 </div>
             ))}
