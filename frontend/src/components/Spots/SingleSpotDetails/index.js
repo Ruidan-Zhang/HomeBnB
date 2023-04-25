@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { loadSingleSpotThunk } from "../../../store/single";
@@ -8,6 +8,8 @@ import EditSpotForm from "../EditSpotForm";
 import CreateReviewForm from "../../Reviews/CreateReviewForm";
 import OpenModalButton from "../../OpenModalButton";
 import DeleteSpotConfirmation from "../DeleteSpots";
+import { createBookingThunk } from "../../../store/bookings";
+import { getMyBookingsThunk } from "../../../store/bookings";
 import './SingleSpotDetails.css';
 
 const SingleSpotDetails = () => {
@@ -22,6 +24,11 @@ const SingleSpotDetails = () => {
     const allReviewsObj = useSelector(state => state.reviews);
     const allReviews = Object.values(allReviewsObj);
 
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+
+    const today = new Date().toISOString().split('T')[0];
+
     const avgRatingFormat = (rating) => {
         if (rating && typeof rating === 'number') return rating.toFixed(2);
         else if (!rating || typeof rating !== 'number') return "No ratings yet";
@@ -31,6 +38,44 @@ const SingleSpotDetails = () => {
         dispatch(loadSingleSpotThunk(spotId));
         return () => dispatch(cleanUpSingleSpotAction());
     }, [dispatch, spotId]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const newBooking = {
+            spotId: foundSpot.id,
+            userId: currentUser.id,
+            startDate,
+            endDate
+        };
+
+        await dispatch(createBookingThunk(spotId, newBooking));
+        await dispatch(getMyBookingsThunk());
+        history.push('/my-bookings');
+    };
+
+    const createBookingForm = (
+        <form onSubmit={handleSubmit} className='create-booking-form'>
+            <input
+                type="date"
+                className="create-booking-form-input"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                min={today}
+                max={endDate}
+                required
+            />
+            <input
+                type="date"
+                className="create-booking-form-input"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                min={startDate}
+                required
+            />
+            <button className="create-booking-submit-button" type="submit">Reserve</button>
+        </form>
+    );
 
     if (!foundSpot) return null;
 
@@ -67,15 +112,27 @@ const SingleSpotDetails = () => {
                     ))
                 )}
             </div>
-            <div className="single-spot-description">
-                <div className="single-spot-owner-and-price">
-                    {foundSpot.Owner && (
-                        <h2>Hosted by {foundSpot.Owner.firstName}</h2>
-                    )}
-                    <h2>${foundSpot.price} night</h2>
+            {foundSpot.ownerId === currentUser.id ? (
+                <div className="single-spot-description-owned">
+                    <div className="single-spot-owner-and-price">
+                        {foundSpot.Owner && (
+                            <h2>Hosted by {foundSpot.Owner.firstName}</h2>
+                        )}
+                        <h2>${foundSpot.price} night</h2>
+                    </div>
+                    <p>{foundSpot.description}</p>
                 </div>
-                <p>{foundSpot.description}</p>
-            </div>
+            ) : (
+                <div className="single-spot-description-not-owned">
+                    <div className="spot-owner-and-price">
+                        {foundSpot.Owner && (
+                            <h2>Hosted by {foundSpot.Owner.firstName}</h2>
+                        )}
+                        <p>{foundSpot.description}</p>
+                    </div>
+                    <div>{createBookingForm}</div>
+                </div>
+            )}
             <div className="single-spot-reviews-container">
                 <div className="single-spot-reviews-header">
                     <h2><i className="fa-solid fa-star"></i>{avgRatingFormat(+foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews</h2>

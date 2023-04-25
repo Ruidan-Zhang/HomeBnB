@@ -5,6 +5,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import AllSpotsComponent from "./components/Spots/AllSpots";
 import SingleSpotDetails from "./components/Spots/SingleSpotDetails";
+import AllBookingsComponent from "./components/Bookings/MyBookings";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route path='/spots/:spotId'>
             <SingleSpotDetails />
+          </Route>
+          <Route exact path='/my-bookings'>
+            <AllBookingsComponent />
           </Route>
           <Route>
             <h1>Page Not Found</h1>
