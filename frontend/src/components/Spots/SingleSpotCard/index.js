@@ -2,7 +2,6 @@ import { useHistory } from 'react-router-dom';
 import './SingleSpotCard.css';
 
 const SingleSpotCard = ({id, city, state, price, avgRating, previewImage}) => {
-
     const history = useHistory();
 
     const handleClick = () => {

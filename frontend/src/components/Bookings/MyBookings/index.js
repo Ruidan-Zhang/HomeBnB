@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyBookingsThunk } from "../../../store/bookings";
+import SingleBookingCard from "../SingleBookingCard";
 
 
 const AllBookingsComponent = () => {
@@ -15,12 +16,13 @@ const AllBookingsComponent = () => {
     if (!allBookings || !allBookingsObj) return null;
 
     return (
-        <div className="all-bookings-container">
-            {allBookings.map((booking) => (
-                <div>
-                    {booking.Spot?.name}
-                    {booking.startDate} - {booking.endDate}
-                </div>
+        <div className="all-spots-container">
+            {allBookings.sort((b, a) => new Date(b.startDate) - new Date(a.startDate)).map((booking) => (
+                <SingleBookingCard
+                    spotId={booking.spotId}
+                    spot={booking.Spot}
+                    booking={booking}
+                />
             ))}
         </div>
     )
