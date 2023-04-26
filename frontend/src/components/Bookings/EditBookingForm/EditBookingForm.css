@@ -1,0 +1,11 @@
+.edit-booking-form {
+    width: 380px;
+    border: 1px solid #d4d4d4;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    padding: 25px;
+    box-sizing: border-box;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}

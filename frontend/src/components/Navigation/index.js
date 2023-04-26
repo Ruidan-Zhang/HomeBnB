@@ -9,7 +9,6 @@ import homeLogo from '../../assets/logo.png';
 import './Navigation.css';
 
 function Navigation({ isLoaded }){
-  const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
 
   return (

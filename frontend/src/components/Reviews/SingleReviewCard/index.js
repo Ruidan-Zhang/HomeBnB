@@ -1,10 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import DeleteReviewConfirmation from "../DeleteReviews";
 import OpenModalButton from "../../OpenModalButton";
 import './SingleReviewCard.css';
 
 const SingleReviewCard = ({review, user, reviewOwnerId, reviewId, spotId, time}) => {
-    const dispatch = useDispatch();
     const currentUser = useSelector(state => state.session.user);
 
     const timeFormat = (time) => {
@@ -23,9 +22,9 @@ const SingleReviewCard = ({review, user, reviewOwnerId, reviewId, spotId, time})
                 <div className="delete-review-button-container">
                 {(currentUser && currentUser.id === reviewOwnerId) && (
                     <OpenModalButton
-                        buttonText='Delete'
+                        buttonText={<i className="fa-regular fa-trash-can"></i>}
                         modalComponent={<DeleteReviewConfirmation reviewId={reviewId} spotId={spotId}/>}
-                        className='delete-review-button'
+                        className='edit-booking-button'
                     />
                 )}
                 </div>

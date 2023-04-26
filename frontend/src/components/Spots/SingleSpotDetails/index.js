@@ -155,16 +155,16 @@ const SingleSpotDetails = () => {
                     <div className="edit-and-delete-spot-buttons-container">
                         <div>
                             <OpenModalButton
-                                buttonText='Edit'
+                                buttonText={<i className="fa-solid fa-pen-to-square"></i>}
                                 modalComponent={<EditSpotForm spotId={spotId}/>}
-                                className='edit-spot-button'
+                                className='edit-booking-button'
                             />
                         </div>
                         <div>
                             <OpenModalButton
-                                buttonText='Delete'
+                                buttonText={<i className="fa-regular fa-trash-can"></i>}
                                 modalComponent={<DeleteSpotConfirmation spotId={spotId}/>}
-                                className='delete-spot-button'
+                                className='edit-booking-button'
                             />
                         </div>
                     </div>
