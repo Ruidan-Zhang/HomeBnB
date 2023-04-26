@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllSpotsThunk } from "../../store/spots";
+import { getAllSpotsThunk } from "../../../store/spots";
 import SingleSpotCard from "../SingleSpotCard";
 import './AllSpots.css';
 

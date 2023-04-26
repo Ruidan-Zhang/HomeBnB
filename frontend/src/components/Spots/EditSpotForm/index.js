@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
-import { editSpotThunk } from "../../store/spots";
+import { useHistory } from "react-router-dom";
+import { editSpotThunk } from "../../../store/spots";
+import { loadSingleSpotThunk } from "../../../store/single";
+import { useModal } from "../../../context/Modal";
 import './EditSpotForm.css';
 
-function EditSpotForm() {
+function EditSpotForm({ spotId }) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { closeModal } = useModal();
 
-  const { spotId } = useParams();
-  let foundSpot = useSelector(state => state.spots[spotId]);
+  let foundSpot = useSelector(state => state.single);
 
   const [address, setAddress] = useState(foundSpot.address);
   const [city, setCity] = useState(foundSpot.city);
@@ -23,20 +25,13 @@ function EditSpotForm() {
   useEffect(() => {
     const newErrors = [];
 
-    if (name.length === 0) newErrors.push('Please enter a name for this spot.');
     if (name.length > 49) newErrors.push('Name is too long.');
-    if (city.length === 0) newErrors.push('City is required.');
-    if (state.length === 0) newErrors.push('State is required.');
-    if (country.length === 0) newErrors.push('Country is required.');
-    if (address.length === 0) newErrors.push('Address is required.');
-    if (description.length === 0) newErrors.push('Description is required.');
-    if (!price) newErrors.push('Price is required.');
     if (price && price < 0) newErrors.push('Price must be greater than $0.');
 
     setErrors(newErrors);
-  }, [name, city, state, country, address, description, price]);
+  }, [name, price]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     foundSpot = {
@@ -51,16 +46,17 @@ function EditSpotForm() {
       description,
       price
     };
-    dispatch(editSpotThunk(foundSpot));
+
+    await dispatch(editSpotThunk(foundSpot));
+    await dispatch(loadSingleSpotThunk(spotId));
+
+    closeModal();
     history.push(`/spots/${spotId}`);
   };
 
   return (
     <form onSubmit={handleSubmit} className='edit-spot-form'>
       <h2>Edit this spot</h2>
-        <ul className="edit-spot-form-errors">
-          {errors.map(error => <li key={error}>{error}</li>)}
-        </ul>
       <input
         className="edit-spot-inputs"
         type="text"
@@ -118,8 +114,20 @@ function EditSpotForm() {
         onChange={(e) => setPrice(e.target.value)}
         required
       />
+      <div className="edit-spot-form-errors">
+        {errors.map((error) => (
+          <div>
+            <i className="fa-solid fa-ban"></i>{' '}
+            {error}
+          </div>
+        ))}
+      </div>
       <div className="edit-spot-submit-button-container">
-        <button className="edit-spot-submit-button" type="submit">Submit</button>
+        {errors.length === 0 ? (
+          <button className="edit-spot-submit-button" type="submit">Save</button>
+        ) : (
+          <button className="edit-spot-submit-button-disabled" type="submit" disabled={true}>Save</button>
+        )}
       </div>
     </form>
   );

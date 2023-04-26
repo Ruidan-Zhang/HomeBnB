@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
-import { createReviewThunk } from "../../store/reviews";
+import { useHistory } from "react-router-dom";
+import { createReviewThunk } from "../../../store/reviews";
+import { loadAllReviewsThunk } from "../../../store/reviews";
+import { useModal } from "../../../context/Modal";
 import './CreateReviewForm.css';
 
-function CreateReviewForm() {
+function CreateReviewForm({ spotId }) {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const { spotId } = useParams();
+  const { closeModal } = useModal();
 
   const [review, setReview] = useState("");
   const [stars, setStars] = useState("");
@@ -17,14 +18,12 @@ function CreateReviewForm() {
   useEffect(() => {
     const newErrors = [];
 
-    if (!stars) newErrors.push('Star is required.');
     if (stars && stars < 1) newErrors.push('Star must be greater than 1.');
     if (stars && stars > 5) newErrors.push('Star must be less than 5.');
     if (stars && !Number.isInteger(+stars)) newErrors.push('Star must be an integer.');
-    if (review.length === 0) newErrors.push('Please leave a review for this spot.');
 
     setErrors(newErrors);
-  }, [review, stars]);
+  }, [stars]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,15 +34,15 @@ function CreateReviewForm() {
     };
 
     await dispatch(createReviewThunk(spotId, newReview));
+    await dispatch(loadAllReviewsThunk(spotId));
+
+    closeModal();
     history.push(`/spots/${spotId}`);
   };
 
   return (
     <form onSubmit={handleSubmit} className='create-review-form'>
-      <h2>Leave a review for this spot</h2>
-        <ul className="create-review-form-errors">
-          {errors.map(error => <li key={error}>{error}</li>)}
-        </ul>
+      <h2>Write a review</h2>
       Star:
       <input
         className="create-review-form-star-input"
@@ -66,8 +65,20 @@ function CreateReviewForm() {
           required
         />
       </div>
+      <div className="create-review-form-errors">
+        {errors.map((error) => (
+          <div>
+            <i className="fa-solid fa-ban"></i>{' '}
+            {error}
+          </div>
+        ))}
+      </div>
       <div className="create-review-submit-button-container">
-        <button className="create-review-submit-button" type="submit">Submit</button>
+        {errors.length === 0 ? (
+          <button className="create-review-submit-button" type="submit">Submit</button>
+        ) : (
+          <button className="create-review-submit-button-disabled" type="submit" disabled={true}>Submit</button>
+        )}
       </div>
     </form>
   );

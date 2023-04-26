@@ -2,10 +2,13 @@
     display: flex;
     flex-direction: column;
     width: 430px;
+    padding: 25px;
 }
 
 .edit-spot-form-errors {
-    color: red;
+    font-size: 15px;
+    margin-top: 15px;
+    color: #ff385c;
 }
 
 .edit-spot-inputs {
@@ -16,14 +19,22 @@
     padding-top: 19px;
 }
 
-.edit-spot-submit-button-container :hover {
-    cursor: pointer;
-}
-
 .edit-spot-submit-button {
+    cursor: pointer;
     background-color: #ff385c;
     color: white;
     border-radius: 8px;
     width: 430px;
     height: 45px;
+    margin-bottom: 5px;
+}
+
+.edit-spot-submit-button-disabled {
+    cursor: not-allowed;
+    background-color: lightgrey;
+    color: grey;
+    border-radius: 8px;
+    width: 430px;
+    height: 45px;
+    margin-bottom: 5px;
 }
