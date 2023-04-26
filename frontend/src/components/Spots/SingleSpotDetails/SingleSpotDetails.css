@@ -4,7 +4,6 @@
     justify-content: center;
     align-items: center;
     width: 1135px;
-    border: 3px solid orange;
 }
 
 .single-spot-name {
@@ -66,22 +65,122 @@
 
 .single-spot-description-owned {
     margin-right: auto;
-    border: 3px solid pink;
+    margin-top: 25px;
 }
 
 .single-spot-owner-and-price {
-    border: 3px solid lightskyblue;
     display: flex;
     justify-content: space-between;
 }
 
 .single-spot-description-not-owned {
-    border: 3px solid green;
     display: flex;
     flex-direction: row;
+    gap: 30px;
+    margin-top: 25px;
 }
 
 .single-spot-reviews-header {
     display: flex;
     align-items: center;
+}
+
+.create-booking-form {
+    width: 380px;
+    border: 1px solid #d4d4d4;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    padding: 25px;
+    box-sizing: border-box;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.create-booking-form-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: -2px;
+}
+
+.create-booking-form-price-container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.create-booking-price {
+    font-weight: 700;
+    font-size: 25px;
+}
+
+.create-booking-form-errors {
+    color: #ff385c;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
+.create-booking-form-inputs-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.create-booking-form-input {
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+    width: 100%;
+}
+
+.create-booking-form-input-picker {
+    height: 50px;
+}
+
+.create-booking-submit-button {
+    cursor: pointer;
+    background-color: #ff385c;
+    border: none;
+    color: white;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+}
+
+.create-booking-form-disclaimer {
+    font-size: 15px;
+    color: #a5a5a5;
+}
+
+.create-booking-form-footer-container {
+    width: 100%;
+}
+
+.create-booking-form-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.create-booking-form-footer-total {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    border-top: 1px solid #d4d4d4;
+}
+
+.total-price {
+    font-weight: 700;
+    font-size: 22px;
+    margin-top: 12px;
 }

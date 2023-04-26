@@ -54,7 +54,7 @@ const SingleSpotDetails = () => {
         const createdBooking = await dispatch(createBookingThunk(spotId, newBooking))
             .catch (async (res) => {
                 const data = await res.json();
-                if (data && data.errors) setErrors(Object.values(data.errors));
+                if (data && data.errors) setErrors('Selected dates conflict with an existing booking.');
             })
 
         if (createdBooking) {
@@ -63,33 +63,83 @@ const SingleSpotDetails = () => {
         }
     };
 
+    const nightCounter = (start, end) => {
+        const difference = new Date(end).getTime() - new Date(start).getTime();
+
+        if (!difference) {
+            return 0;
+        } else {
+            return Math.round(difference / (1000 * 60 * 60 * 24));
+        }
+    };
+
+    const feesCalculator = (start, end, price) => {
+        const bookingFee = (price * nightCounter(start, end)).toFixed(2);
+        const cleaningFee = (bookingFee * 0.15).toFixed(2);
+        const serviceFee = (bookingFee * 0.1).toFixed(2);
+        let total = 0;
+        total = (+bookingFee + +cleaningFee + +serviceFee).toFixed(2);
+
+        return {bookingFee, cleaningFee, serviceFee, total};
+    };
+
     const createBookingForm = (
         <form onSubmit={handleSubmit} className='create-booking-form'>
-            {errors && (
-                <div>
-                    {errors.map((error, idx) => (
-                        <li key={idx}>{error}</li>
-                    ))}
+            <div className="create-booking-form-header">
+                <div className="create-booking-form-price-container">
+                    <div className="create-booking-price">${Number(foundSpot.price).toFixed(2)}</div>
+                    <div>night</div>
                 </div>
+                <div><i className="fa-solid fa-star"></i>{avgRatingFormat(+foundSpot.avgStarRating)} · {foundSpot.numReviews} reviews</div>
+            </div>
+            {errors && (
+                <div className="create-booking-form-errors">{errors}</div>
             )}
-            <input
-                type="date"
-                className="create-booking-form-input"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                min={today}
-                max={endDate}
-                required
-            />
-            <input
-                type="date"
-                className="create-booking-form-input"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                min={startDate}
-                required
-            />
+            <div className="create-booking-form-inputs-container">
+                <div className="create-booking-form-input">
+                    <label htmlFor='startDate'>Check-in:</label>
+                    <input
+                        type="date"
+                        className="create-booking-form-input-picker"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        min={today}
+                        max={endDate}
+                        required
+                    />
+                </div>
+                <div className="create-booking-form-input">
+                    <label htmlFor='startDate'>Check-out:</label>
+                    <input
+                        type="date"
+                        className="create-booking-form-input-picker"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        min={startDate}
+                        required
+                    />
+                </div>
+            </div>
             <button className="create-booking-submit-button" type="submit">Reserve</button>
+            <div className="create-booking-form-disclaimer">Demo transaction. You won't be charged.</div>
+            <div className="create-booking-form-footer-container">
+                <div className="create-booking-form-footer">
+                    <div>${Number(foundSpot.price).toFixed(2)} x {nightCounter(startDate, endDate)} nights</div>
+                    <div>${feesCalculator(startDate, endDate, foundSpot.price).bookingFee}</div>
+                </div>
+                <div className="create-booking-form-footer">
+                    <div>{'Cleaning fee (15%)'}</div>
+                    <div>${feesCalculator(startDate, endDate, foundSpot.price).cleaningFee}</div>
+                </div>
+                <div className="create-booking-form-footer">
+                    <div>{'Service fee (10%)'}</div>
+                    <div>${feesCalculator(startDate, endDate, foundSpot.price).serviceFee}</div>
+                </div>
+                <div className="create-booking-form-footer-total">
+                    <div className="total-price">Total</div>
+                    <div className="total-price">${feesCalculator(startDate, endDate, foundSpot.price).total}</div>
+                </div>
+            </div>
         </form>
     );
 
