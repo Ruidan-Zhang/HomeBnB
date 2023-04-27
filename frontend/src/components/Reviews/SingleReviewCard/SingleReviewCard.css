@@ -6,7 +6,6 @@
 
 .delete-review-button-container :hover {
     cursor: pointer;
-    box-shadow: 2px 2px 2px rgb(81, 81, 81);
 }
 
 .delete-review-button {

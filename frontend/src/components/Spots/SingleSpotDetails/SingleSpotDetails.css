@@ -42,7 +42,12 @@
 
 .edit-and-delete-spot-buttons-container :hover {
     cursor: pointer;
-    box-shadow: 2px 2px 2px rgb(81, 81, 81);
+}
+
+.single-spot-reviews-container {
+    margin-top: 50px;
+    border-top: 1px solid #d4d4d4;
+    padding-top: 40px;
 }
 
 .create-review-button-container {
@@ -77,7 +82,8 @@
     display: flex;
     flex-direction: row;
     gap: 30px;
-    margin-top: 25px;
+    margin-top: 30px;
+    padding-bottom: 10px;
 }
 
 .single-spot-reviews-header {

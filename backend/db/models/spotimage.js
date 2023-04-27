@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: [1, 200]
-      }
+      },
+      defaultValue: 'https://t4.ftcdn.net/jpg/04/99/93/31/360_F_499933117_ZAUBfv3P1HEOsZDrnkbNCt4jc3AodArl.jpg'
     },
     preview: {
       type: DataTypes.BOOLEAN,

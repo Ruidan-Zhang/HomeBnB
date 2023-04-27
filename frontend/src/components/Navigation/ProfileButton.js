@@ -5,9 +5,11 @@ import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { useHistory } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -42,27 +44,31 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.logout());
     closeMenu();
+    history.push('/');
+  };
+
+  const handleClick = () => {
+    history.push(`/my-bookings`)
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
-      <button onClick={openMenu}  className='nav-bar-session-buttons'>
+    <div className="nav-bar-drop-down-menu-container">
+      <button onClick={openMenu}  className='nav-bar-user-container'>
         <i className="fa-solid fa-bars"></i>
         <i className="fas fa-user-circle" />
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <div className={ulClassName} ref={ulRef}>
         {user ? (
           <div className="hiddenContainer">
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
+            <div>{user.firstName} {user.lastName}</div>
+            <div onClick={handleClick} className='dropdown-menu-my-bookings-button'>My bookings</div>
+            <div>
               <div className="menu-buttons-container">
                 <button className="menu-button" onClick={logout}>Log Out</button>
               </div>
-            </li>
+            </div>
           </div>
         ) : (
           <div className="drop-down-menu">
@@ -71,6 +77,7 @@ function ProfileButton({ user }) {
                 buttonText="Log In"
                 onButtonClick={closeMenu}
                 modalComponent={<LoginFormModal />}
+                className='menu-button-not-logged-in'
               />
             </div>
             <div className="menu-buttons-container">
@@ -78,18 +85,20 @@ function ProfileButton({ user }) {
                 buttonText="Sign Up"
                 onButtonClick={closeMenu}
                 modalComponent={<SignupFormModal />}
+                className='menu-button-not-logged-in'
               />
             </div>
             <div className="menu-buttons-container">
               <OpenModalButton
                 buttonText="Demo User"
                 onButtonClick={demoUserLogIn}
+                className='menu-button-not-logged-in'
               />
             </div>
           </div>
         )}
-      </ul>
-    </>
+      </div>
+    </div>
   );
 }
 

@@ -22,7 +22,7 @@ module.exports = {
       },
       {
         spotId: 3,
-        url: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-43767180/original/c24d44fa-996b-4c38-a4b5-f429e8307d0f.jpeg?im_w=1200',
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-828636047925065660/original/85447f32-7230-424a-b076-4592bf0c2eb3.jpeg?im_w=1200',
         preview: true
       },
       {

@@ -155,16 +155,16 @@ const SingleSpotDetails = () => {
                     <div className="edit-and-delete-spot-buttons-container">
                         <div>
                             <OpenModalButton
-                                buttonText='Edit'
+                                buttonText={<i className="fa-solid fa-pen-to-square"></i>}
                                 modalComponent={<EditSpotForm spotId={spotId}/>}
-                                className='edit-spot-button'
+                                className='edit-booking-button'
                             />
                         </div>
                         <div>
                             <OpenModalButton
-                                buttonText='Delete'
+                                buttonText={<i className="fa-regular fa-trash-can"></i>}
                                 modalComponent={<DeleteSpotConfirmation spotId={spotId}/>}
-                                className='delete-spot-button'
+                                className='edit-booking-button'
                             />
                         </div>
                     </div>
@@ -174,11 +174,11 @@ const SingleSpotDetails = () => {
             <div className="single-spot-images">
                 {foundSpot.SpotImages && (
                     foundSpot.SpotImages.map(image => (
-                        <img src={image.url} alt={foundSpot.name} key={image.id} style={{borderRadius: 11, width: 1130, height: 560}}/>
+                        <img src={image.url} alt='Image not available' key={image.id} style={{borderRadius: 11, width: 1130, height: 560}}/>
                     ))
                 )}
             </div>
-            {foundSpot.ownerId === currentUser.id ? (
+            {!currentUser && (
                 <div className="single-spot-description-owned">
                     <div className="single-spot-owner-and-price">
                         {foundSpot.Owner && (
@@ -188,7 +188,19 @@ const SingleSpotDetails = () => {
                     </div>
                     <p>{foundSpot.description}</p>
                 </div>
-            ) : (
+            )}
+            {currentUser && (foundSpot.ownerId === currentUser.id) && (
+                <div className="single-spot-description-owned">
+                    <div className="single-spot-owner-and-price">
+                        {foundSpot.Owner && (
+                            <h2>Hosted by {foundSpot.Owner.firstName}</h2>
+                        )}
+                        <h2>${foundSpot.price} night</h2>
+                    </div>
+                    <p>{foundSpot.description}</p>
+                </div>
+            )}
+            {currentUser && foundSpot.ownerId !== currentUser.id && (
                 <div className="single-spot-description-not-owned">
                     <div className="spot-owner-and-price">
                         {foundSpot.Owner && (

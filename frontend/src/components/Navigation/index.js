@@ -9,7 +9,6 @@ import homeLogo from '../../assets/logo.png';
 import './Navigation.css';
 
 function Navigation({ isLoaded }){
-  const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
 
   return (
@@ -24,7 +23,7 @@ function Navigation({ isLoaded }){
         {sessionUser ? (
           <div className='nav-bar-create-spot-button-container'>
             <OpenModalButton
-              buttonText='Create A Spot'
+              buttonText={<h4>Create a spot!</h4>}
               modalComponent={<CreateSpotForm />}
               className='nav-bar-create-spot-button'
             />
