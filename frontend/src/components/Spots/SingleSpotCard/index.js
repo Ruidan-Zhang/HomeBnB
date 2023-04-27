@@ -17,7 +17,7 @@ const SingleSpotCard = ({id, city, state, price, avgRating, previewImage}) => {
 
     return (
         <div className="single-spot-card-container" onClick={handleClick}>
-            <img className='single-spot-previewImage' src={previewImage} alt='single-spot-preview'/>
+            <img className='single-spot-previewImage' src={previewImage} alt='Image not available'/>
             <div className='single-spot-address-and-rating'>
                 <div className="single-spot-card-address">{city}, {state}</div>
                 <div className='single-spot-rating'>
