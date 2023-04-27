@@ -23,7 +23,7 @@ function Navigation({ isLoaded }){
         {sessionUser ? (
           <div className='nav-bar-create-spot-button-container'>
             <OpenModalButton
-              buttonText='Create A Spot'
+              buttonText={<h4>Create a spot!</h4>}
               modalComponent={<CreateSpotForm />}
               className='nav-bar-create-spot-button'
             />

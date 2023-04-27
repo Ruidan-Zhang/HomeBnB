@@ -53,7 +53,7 @@ function EditBookingForm({ booking, spot }) {
             history.push('/my-bookings');
         }
     };
-console.log('HEREEEEEEEE', booking)
+
     const nightCounter = (start, end) => {
         const difference = new Date(end).getTime() - new Date(start).getTime();
 

@@ -178,7 +178,7 @@ const SingleSpotDetails = () => {
                     ))
                 )}
             </div>
-            {foundSpot.ownerId === currentUser.id ? (
+            {foundSpot.ownerId === currentUser?.id ? (
                 <div className="single-spot-description-owned">
                     <div className="single-spot-owner-and-price">
                         {foundSpot.Owner && (
