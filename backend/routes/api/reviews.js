@@ -112,7 +112,9 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 //Edit a Review
 router.put('/:reviewId', validateReview, requireAuth, async (req, res, next) => {
     const { reviewId } = req.params;
-    const foundReview = await Review.findByPk(reviewId);
+    const foundReview = await Review.findByPk(reviewId, {
+        include: [User]
+    });
 
     if (!foundReview) {
         const err = new Error("Review couldn't be found");

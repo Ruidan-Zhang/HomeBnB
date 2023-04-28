@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import DeleteReviewConfirmation from "../DeleteReviews";
+import EditReviewForm from "../EditReviewForm";
 import OpenModalButton from "../../OpenModalButton";
 import './SingleReviewCard.css';
 
@@ -21,11 +22,18 @@ const SingleReviewCard = ({review, user, reviewOwnerId, reviewId, spotId, time})
                 <div className="single-review-reviewOwner">{user}</div>
                 <div className="delete-review-button-container">
                 {(currentUser && currentUser.id === reviewOwnerId) && (
-                    <OpenModalButton
-                        buttonText={<i className="fa-regular fa-trash-can"></i>}
-                        modalComponent={<DeleteReviewConfirmation reviewId={reviewId} spotId={spotId}/>}
-                        className='edit-booking-button'
-                    />
+                    <div>
+                        <OpenModalButton
+                            buttonText={<i className="fa-solid fa-pen-to-square"></i>}
+                            modalComponent={<EditReviewForm reviewId={reviewId} spotId={spotId}/>}
+                            className='edit-booking-button'
+                        />
+                        <OpenModalButton
+                            buttonText={<i className="fa-regular fa-trash-can"></i>}
+                            modalComponent={<DeleteReviewConfirmation reviewId={reviewId} spotId={spotId}/>}
+                            className='edit-booking-button'
+                        />
+                    </div>
                 )}
                 </div>
             </div>
