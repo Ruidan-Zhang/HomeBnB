@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
-} //this block of code is required in every seeder file.
+}
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -58,6 +58,27 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password7'),
         firstName: 'Ravid',
         lastName: 'Biondo'
+      },
+      {
+        email: 'user7@user.io',
+        username: 'FakeUser7',
+        hashedPassword: bcrypt.hashSync('password8'),
+        firstName: 'Hallie',
+        lastName: 'Anil'
+      },
+      {
+        email: 'user8@user.io',
+        username: 'FakeUser8',
+        hashedPassword: bcrypt.hashSync('password9'),
+        firstName: 'Noé',
+        lastName: 'Buse'
+      },
+      {
+        email: 'user9@user.io',
+        username: 'FakeUser9',
+        hashedPassword: bcrypt.hashSync('password10'),
+        firstName: 'Esben',
+        lastName: 'Hoshea'
       }
     ], {});
   },
@@ -65,8 +86,6 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'Users';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
-    }, {});
+    return queryInterface.bulkDelete(options, {}, {});
   }
 };
