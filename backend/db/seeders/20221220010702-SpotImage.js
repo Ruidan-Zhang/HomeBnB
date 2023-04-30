@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
-} //this block of code is required in every seeder file.
+}
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -49,6 +49,56 @@ module.exports = {
         spotId: 8,
         url: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-613825092990187953/original/2edbd551-71dd-48dc-8d4a-8b75f01a0764.jpeg?im_w=1440',
         preview: true
+      },
+      {
+        spotId: 9,
+        url: 'https://a0.muscache.com/im/pictures/82c577ee-3422-4fda-ae09-6716d76e8bef.jpg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 10,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-44666241/original/0591ad1e-13fb-4a92-9cbc-142ef84da392.jpeg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 11,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-53503031/original/c1ba9b61-6b71-430d-add1-69d1ab8b2b6e.jpeg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 12,
+        url: 'https://a0.muscache.com/im/pictures/a19cd4a2-c7da-40f1-840c-11052830966e.jpg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 13,
+        url: 'https://a0.muscache.com/im/pictures/af8160e6-40c9-4123-b39d-95cd9121cdcd.jpg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 14,
+        url: 'https://a0.muscache.com/im/pictures/4227f62a-60f6-45b1-a3a4-6174f2c30f30.jpg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 15,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-43946664/original/1c6cc1ea-4622-4024-90be-17abe4ed028d.jpeg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 16,
+        url: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-619796613778817286/original/3dbba644-d076-4a6d-9dda-81e54d7c1777.jpeg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 17,
+        url: 'https://a0.muscache.com/im/pictures/74454988-2c3c-4975-9b4c-740a4a830939.jpg?im_w=1200',
+        preview: true
+      },
+      {
+        spotId: 18,
+        url: 'https://a0.muscache.com/im/pictures/miso/Hosting-46472449/original/719ea274-0139-4699-a4c4-e5bd1063c86a.jpeg?im_w=1200',
+        preview: true
       }
     ], {});
   },
@@ -56,8 +106,6 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1, 2, 3] }
-    }, {});
+    return queryInterface.bulkDelete(options, {}, {});
   }
 };

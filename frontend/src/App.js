@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import AllSpotsComponent from "./components/Spots/AllSpots";
 import SingleSpotDetails from "./components/Spots/SingleSpotDetails";
 import AllBookingsComponent from "./components/Bookings/MyBookings";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
