@@ -34,6 +34,9 @@ function App() {
           </Route>
         </Switch>
       )}
+      {!isLoaded && (
+        <h1>test</h1>
+      )}
       <Footer />
     </>
   );
