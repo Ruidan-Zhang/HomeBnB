@@ -7,7 +7,6 @@ import AllSpotsComponent from "./components/Spots/AllSpots";
 import SingleSpotDetails from "./components/Spots/SingleSpotDetails";
 import AllBookingsComponent from "./components/Bookings/MyBookings";
 import Footer from "./components/Footer";
-import loadingImage from "./assets/LOADING.gif";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,9 +33,6 @@ function App() {
             <h1>Page Not Found</h1>
           </Route>
         </Switch>
-      )}
-      {!isLoaded && (
-        <img src={lloadingImage} alt="loading..."/>
       )}
       <Footer />
     </>
