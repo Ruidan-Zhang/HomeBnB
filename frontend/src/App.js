@@ -7,6 +7,7 @@ import AllSpotsComponent from "./components/Spots/AllSpots";
 import SingleSpotDetails from "./components/Spots/SingleSpotDetails";
 import AllBookingsComponent from "./components/Bookings/MyBookings";
 import Footer from "./components/Footer";
+import loadingImage from "./assets/LOADING.gif";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function App() {
         </Switch>
       )}
       {!isLoaded && (
-        <h1>test</h1>
+        <img src={lloadingImage} alt="loading..."/>
       )}
       <Footer />
     </>
